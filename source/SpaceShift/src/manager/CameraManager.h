@@ -75,6 +75,8 @@ public:
 	mat4 MVP() { return mvp; }
 	vec3 Perspective() { return perspective; }
 	vec3 WorldPivot() { return vec3(*targetPoint); }
+	float GetSize() { return size; }
+	float GetSizeRelative() { return size / sizeMaxLimit; }
 
 	void AdjustPitch(float val)
 	{ 

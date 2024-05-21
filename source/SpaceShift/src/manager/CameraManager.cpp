@@ -66,3 +66,4 @@ void CameraManager::ChangeSize(float deltaSize)
 	UpdateCameraSettings();
 }
 
+

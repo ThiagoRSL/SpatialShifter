@@ -104,9 +104,10 @@ void ShipModel::Init()
 
 void ShipModel::Render()
 {
-
-	ParticleShader->setUniform(string("ParticleSize"), 0.01f);
-	ParticleShader->setUniform(string("ColorDegradation"), vec3(1.0f, 0.15f, 0.15f));
+	// TODO: Find proper values for mantain particle size based on camera size, 
+	// Should do math properly for that.
+	ParticleShader->setUniform(string("ParticleSize"), 0.01f - (0.007f * CameraManager::GetInstance()->GetSizeRelative()));
+	ParticleShader->setUniform(string("ColorDegradation"), vec3(1.0f, 0.05f, 0.05f));
 	ParticleShader->setUniform(string("MaxTTL"), MaxTimeToLive);
 	ParticleShader->setUniform(string("RotationMatrix"), rotationMatrix);
 	ParticleShader->setUniform(string("CamTrans"), CameraManager::GetInstance()->WorldPivot());
@@ -273,6 +274,7 @@ void ShipModel::GenerateParticles()
 	int createdParticles = 0;
 
 	mat4 rotationMatrix = Controller->GetRotationMatrix();
+	vec4* ParticleColor2 = new vec4[MaxParticlesNumber];
 
 	for (int i = 0; i < (20 + (int)(thrustProportion * 30.0f)); i++) //
 	{
@@ -292,6 +294,7 @@ void ShipModel::GenerateParticles()
 
 		float whiteness = MathUtils::RandomBetween(0.60f, 0.80f);
 		ParticleColor[NextParticleIndex] = vec4(MathUtils::RandomBetween(0.85f, 1.0f), MathUtils::RandomBetween(0.85f, 1.0f), whiteness, 1.0f);
+		ParticleColor2[NextParticleIndex] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
 
 		ParticleVelocity[NextParticleIndex] = speed;
 
@@ -322,6 +325,7 @@ void ShipModel::GenerateParticles()
 	}
 	else
 	{
+		printf("\nEStourei kkk!");
 		int overflow = (oldSize + createdParticles) - MaxParticlesNumber;
 
 		//Cuida das substituições antes de reiniciar o limite.
@@ -342,7 +346,7 @@ void ShipModel::GenerateParticles()
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticleVelocity[0]);
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticleColor[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticleColor2[0]);
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(float), &ParticleTTL[0]);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[3]);
