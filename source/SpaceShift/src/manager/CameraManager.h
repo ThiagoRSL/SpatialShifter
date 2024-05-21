@@ -25,8 +25,6 @@ private:
 	glm::mat4 orthographicMatrix;
 	glm::mat4 mvp;
 
-
-
 	//glm::vec3 perspective = glm::vec3(45.0f, 0.0f, 0.0f);
 	glm::vec3 perspective = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 70.0f);
@@ -47,6 +45,9 @@ private:
 	float yaw = 0.0f;
 	float row = 0.0f;
 
+	float size, sizeMinLimit, sizeMaxLimit;
+	float nearPlane;
+	float farPlane;
 
 	CameraManager();
 
@@ -62,6 +63,8 @@ public:
 
 	// mesh virtual functions
 	void InitCamera(GLFWwindow* window);
+	void UpdateCameraSettings();
+	void ChangeSize(float deltaSize);
 	void Update()
 	{
 		//worldPivot = vec3(this->cameraTarget->x, this->cameraTarget->y, 0);

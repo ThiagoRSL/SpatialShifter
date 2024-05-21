@@ -91,7 +91,9 @@ void mainLoop()
 
 		thisTime = glfwGetTime();
 		UpdateManager::GetInstance()->CheckTime(thisTime);
+		
 		if(lastFrame >= UpdateManager::GetInstance()->GetLastFrame()) continue;
+
 		lastFrame = UpdateManager::GetInstance()->GetLastFrame();
 
 
@@ -126,6 +128,13 @@ void mouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	InputManager::GetInstance()->UpdateMousePosition(xpos, ypos);
 }
+
+void mouseScrollCallback(GLFWwindow* window, double xpos, double ypos)
+{
+	InputManager::GetInstance()->UpdateMouseScroll(xpos, ypos);
+}
+
+
 // Key callback
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -184,6 +193,7 @@ void initCallbacks()
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, keyCallback);
 	glfwSetCursorPosCallback(window, mouseCallback);
+	glfwSetScrollCallback(window, mouseScrollCallback);
 	glfwSetErrorCallback(errorCallback);
 }
 
@@ -230,6 +240,7 @@ int main(int argc, char* argv[])
 	initializeGL();
 	InputManager::GetInstance()->SetWindow(window);
 	CameraManager::GetInstance()->InitCamera(window);
+	//CameraManager::GetInstance()->UpdateCameraSettings();
 	//Se isso for carregado depois dos monstros o mouse para de renderizar ???
 
 

@@ -176,6 +176,13 @@ void InputManager::ProcessMouse(double deltaTime)
 
 }
 
+
+void InputManager::UpdateMouseScroll(float xpos, float ypos)
+{
+	float delta = -(ypos * 2.0f);
+	CameraManager::GetInstance()->ChangeSize(delta);
+}
+
 void InputManager::UpdateMousePosition(float xpos, float ypos)
 {
 	xpos = MathUtils::Clip(xpos, -windowSize.x, windowSize.x);

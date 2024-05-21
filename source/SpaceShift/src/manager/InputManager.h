@@ -60,6 +60,7 @@ public:
 	void KeyboardInput(int key, int scancode, int action, int mods);
 	void ProcessMouse(double deltaTime);
 	void UpdateMousePosition(float xpos, float ypos);
+	void UpdateMouseScroll(float xpos, float ypos);
 
 	void SetWindow(GLFWwindow* window);
 	void UpdateWindowSize();

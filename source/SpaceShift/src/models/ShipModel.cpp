@@ -280,7 +280,7 @@ void ShipModel::GenerateParticles()
 
 		ParticleIndex[NextParticleIndex] = NextParticleIndex;
 
-		vec3 dirVec = vec3(rotationMatrix * vec4(MathUtils::RandomBetween(-0.75, 0.75), MathUtils::RandomBetween(-2.7f, -2.5f), 0.0f, 1.0f));
+		vec3 dirVec = vec3(rotationMatrix * vec4(MathUtils::RandomBetween(-0.75, 0.75), MathUtils::RandomBetween(-2.7f, -2.25f), 0.0f, 1.0f));
 
 		ParticlePosition[NextParticleIndex] = vec4(vec4(Controller->GetPosition() + dirVec, 1.0f));
 
@@ -290,7 +290,7 @@ void ShipModel::GenerateParticles()
 		vec4 speed = vec4(speedDir + this->Controller->GetLinearSpeed() - vec3(rotationMatrix * (vec4(0.0f, (0.5f + thrustProportion * 25.0f) + MathUtils::RandomBetween(-2.0f, 2.0f), 0.f, 1.0f))), 1.0f);
 
 
-		float whiteness = MathUtils::RandomBetween(0.50f, 0.70f);
+		float whiteness = MathUtils::RandomBetween(0.60f, 0.80f);
 		ParticleColor[NextParticleIndex] = vec4(MathUtils::RandomBetween(0.85f, 1.0f), MathUtils::RandomBetween(0.85f, 1.0f), whiteness, 1.0f);
 
 		ParticleVelocity[NextParticleIndex] = speed;
