@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\utils\GLUtils.cpp" />
+    <ClCompile Include="..\..\utils\TextureManager.cpp" />
+    <ClCompile Include="src\autonomy\AutonomyShipModule.cpp" />
+    <ClCompile Include="src\builders\InterfaceBuilder.cpp" />
+    <ClCompile Include="src\builders\ShipBuilder.cpp" />
+    <ClCompile Include="src\colliders\AbstractCollider.cpp" />
+    <ClCompile Include="src\colliders\PointCollider.cpp" />
+    <ClCompile Include="src\colliders\PolyCollider.cpp" />
+    <ClCompile Include="src\common\ObjectLoader.cpp" />
+    <ClCompile Include="src\common\Shader.cpp" />
+    <ClCompile Include="src\entities\Entity.cpp" />
+    <ClCompile Include="src\entities\projectiles\Projectile.cpp" />
+    <ClCompile Include="src\entities\Ship.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\manager\CameraManager.cpp" />
+    <ClCompile Include="src\manager\CollisionManager.cpp" />
+    <ClCompile Include="src\manager\InputManager.cpp" />
+    <ClCompile Include="src\manager\InterfaceManager.cpp" />
+    <ClCompile Include="src\manager\RenderManager.cpp" />
+    <ClCompile Include="src\manager\ShaderManager.cpp" />
+    <ClCompile Include="src\manager\StageManager.cpp" />
+    <ClCompile Include="src\manager\TextManager.cpp" />
+    <ClCompile Include="src\manager\UpdateManager.cpp" />
+    <ClCompile Include="src\models\ColliderModel.cpp" />
+    <ClCompile Include="src\models\interface\CursorModel.cpp" />
+    <ClCompile Include="src\models\ProjectileModel.cpp" />
+    <ClCompile Include="src\models\ShipModel.cpp" />
+    <ClCompile Include="src\models\skills\DevouringSingularityModel.cpp" />
+    <ClCompile Include="src\particles\Particle.cpp" />
+    <ClCompile Include="src\particles\ParticleGenerator.cpp" />
+    <ClCompile Include="src\physics\Force.cpp" />
+    <ClCompile Include="src\physics\SpacePhysics.cpp" />
+    <ClCompile Include="src\scripts\skills\void\DevouringSingularity.cpp" />
+    <ClCompile Include="src\utils\GlobalVars.cpp" />
+    <ClCompile Include="src\utils\MathUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\utils\GLUtils.h" />
+    <ClInclude Include="..\..\utils\TextureManager.h" />
+    <ClInclude Include="src\autonomy\AutonomyShipModule.h" />
+    <ClInclude Include="src\builders\InterfaceBuilder.h" />
+    <ClInclude Include="src\builders\ShipBuilder.h" />
+    <ClInclude Include="src\colliders\AbstractCollider.h" />
+    <ClInclude Include="src\colliders\PointCollider.h" />
+    <ClInclude Include="src\colliders\PolyCollider.h" />
+    <ClInclude Include="src\common\ObjectLoader.h" />
+    <ClInclude Include="src\common\Shader.h" />
+    <ClInclude Include="src\entities\Entity.h" />
+    <ClInclude Include="src\entities\projectiles\Projectile.h" />
+    <ClInclude Include="src\entities\Ship.h" />
+    <ClInclude Include="src\manager\CameraManager.h" />
+    <ClInclude Include="src\manager\CollisionManager.h" />
+    <ClInclude Include="src\manager\InputManager.h" />
+    <ClInclude Include="src\manager\InterfaceManager.h" />
+    <ClInclude Include="src\manager\RenderManager.h" />
+    <ClInclude Include="src\manager\ShaderManager.h" />
+    <ClInclude Include="src\manager\StageManager.h" />
+    <ClInclude Include="src\manager\TextManager.h" />
+    <ClInclude Include="src\manager\UpdateManager.h" />
+    <ClInclude Include="src\models\ColliderModel.h" />
+    <ClInclude Include="src\models\interface\CursorModel.h" />
+    <ClInclude Include="src\models\ProjectileModel.h" />
+    <ClInclude Include="src\models\RenderModel.h" />
+    <ClInclude Include="src\models\ShipModel.h" />
+    <ClInclude Include="src\models\skills\DevouringSingularityModel.h" />
+    <ClInclude Include="src\particles\Particle.h" />
+    <ClInclude Include="src\particles\ParticleGenerator.h" />
+    <ClInclude Include="src\physics\Force.h" />
+    <ClInclude Include="src\physics\SpacePhysics.h" />
+    <ClInclude Include="src\scripts\skills\SkillAbstract.h" />
+    <ClInclude Include="src\scripts\skills\void\DevouringSingularity.h" />
+    <ClInclude Include="src\utils\CoordinateTranslateUtils.h" />
+    <ClInclude Include="src\utils\GlobalVars.h" />
+    <ClInclude Include="src\utils\MathUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\axis.frag" />
+    <None Include="shader\axis.vert" />
+    <None Include="shader\debug\debugcollider.frag" />
+    <None Include="shader\debug\debugcollider.vert" />
+    <None Include="shader\interface\cursor.frag" />
+    <None Include="shader\interface\cursor.vert" />
+    <None Include="shader\interface\interfaceElement.frag" />
+    <None Include="shader\interface\interfaceElement.vert" />
+    <None Include="shader\interface\text.frag" />
+    <None Include="shader\interface\text.vert" />
+    <None Include="shader\particle\particles.comp" />
+    <None Include="shader\particle\particles.frag" />
+    <None Include="shader\particle\particles.geom" />
+    <None Include="shader\particle\particles.vert" />
+    <None Include="shader\projectile\ballistic.frag" />
+    <None Include="shader\projectile\ballistic.geom" />
+    <None Include="shader\projectile\ballistic.vert" />
+    <None Include="shader\ship\ship.frag" />
+    <None Include="shader\ship\ship.geom" />
+    <None Include="shader\ship\ship.vert" />
+    <None Include="shader\skills\singularity.frag" />
+    <None Include="shader\skills\singularity.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Readme.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CA7280EE-9721-4937-AE93-2D9FF2B50AD8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>OculusWorldDemo</RootNamespace>
+    <ProjectName>Trabalho1Cga</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)../../../Obj/Win/VS2013/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(ProjectDir)../../../Bin/Win/VS2013/$(Configuration)/$(PlatformName)/</OutDir>
+    <TargetName>$(SolutionName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)../../../Obj/Win/VS2013/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>OculusWorldDemo</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)../../../Obj/Win/VS2013/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(ProjectDir)../../../Bin/Win/VS2013/$(Configuration)/$(PlatformName)/</OutDir>
+    <TargetName>$(SolutionName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\utils;</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;glu32.lib;opengl32.lib;FreeImage.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)shader" "$(TargetDir)\shader\" /S /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>compying shaders</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>OVR_BUILD_DEBUG;_WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\utils;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalOptions>/d2Zi+ %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;glu32.lib;opengl32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProjectDir)shader" "$(TargetDir)\shader\" /S /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>compying shaders</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalOptions>/d2Zi+ %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

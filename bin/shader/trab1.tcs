@@ -1,0 +1,84 @@
+// Tessellation Control Shader
+//
+// Neste estágio é definido o número de subdivisões para cada aresta e para o centro do Quad.
+// Lembrete: o Tessellation Control Shader é executado para cada vértice do Patch. Isto faz com que
+// o gl_TessLevelOuter e o gl_TessLevelInner sejam setados 4 vezes por Patch (nosso patch possui
+// 4 vértices). É possível utilizar o gl_InvocationID (id único para cada vértice do patch) para modificar
+// essas variáveis apenas uma vez por Patch.
+//
+// Após este estágio a GPU irá gerar novos vértices que seram alimentados para o Tessellation
+// Evaluation Shader.
+//
+// Abril 2016 - Alex Frasson - afrasson@inf.ufsm.br
+
+#version 460
+
+layout(vertices = 4) out;
+
+uniform mat4 TransCam;
+uniform mat4 MVP;
+uniform vec4 PlayerPosition;
+uniform vec4 PlayerPositionScreen;
+uniform vec4 MousePosition;
+uniform vec4 PlanePosition;
+
+uniform int TesselationLevel;
+
+//vec4 playerPos = vec4(2.0 * MousePosition.x - 1.0, 2.0 * MousePosition.y - 1.0, 0.0, 0.0);
+//vec4 playerPos = vec4(MousePosition.x, MousePosition.y, 0.0, 1.0);
+vec4 playerPos = vec4(PlayerPositionScreen.x, PlayerPositionScreen.y, PlayerPositionScreen.z, 1.0f);
+
+in vec2 vTexCoord[];
+in vec4 vPosition[];
+in vec3 vColor[];
+
+out vec3 tcColor[];
+out vec2 tcTexCoord[];
+out vec4 tcPosition[];
+
+const float MAX_TES = float(TesselationLevel*3);
+const float MIN_TES = float(TesselationLevel);
+const float MAX_DISTANCE = 1.2;
+const float MIN_DISTANCE = 0.0;
+
+void main()
+{
+
+	// Precisamos passar adiante os vértices e suas informações
+	tcTexCoord[gl_InvocationID] = vTexCoord[gl_InvocationID];
+	tcPosition[gl_InvocationID] = vPosition[gl_InvocationID];
+	tcColor[gl_InvocationID] = vColor[gl_InvocationID];
+
+	// Vamos modificar o inner e outer apenas para o primeiro vértice do Patch
+	if (gl_InvocationID == 0)
+	{
+		//Calcula os pontos entre os vertices de cada lado
+		vec4 c0 = (vPosition[0] + vPosition[1])/2.0; //Baixo
+		vec4 c1 = (vPosition[1] + vPosition[2])/2.0; //Direita
+		vec4 c2 = (vPosition[2] + vPosition[3])/2.0; //Cima
+		vec4 c3 = (vPosition[3] + vPosition[0])/2.0; //Esquerda
+
+		float playerDistC0 = distance(playerPos.xy, c0.xy); 
+		float playerDistC1 = distance(playerPos.xy, c1.xy);  
+		float playerDistC2 = distance(playerPos.xy, c2.xy); 
+		float playerDistC3 = distance(playerPos.xy, c3.xy); 
+
+		int tessLevel1 = int(mix(MAX_TES, MIN_TES, clamp(playerDistC0 / MAX_DISTANCE, 0.0, 1.1)));
+		int tessLevel2 = int(mix(MAX_TES, MIN_TES, clamp(playerDistC1 / MAX_DISTANCE, 0.0, 1.1)));
+		int tessLevel3 = int(mix(MAX_TES, MIN_TES, clamp(playerDistC2 / MAX_DISTANCE, 0.0, 1.1)));
+		int tessLevel4 = int(mix(MAX_TES, MIN_TES, clamp(playerDistC3 / MAX_DISTANCE, 0.0, 1.1)));
+
+		gl_TessLevelOuter[0] = tessLevel4;
+		gl_TessLevelOuter[1] = tessLevel1;
+		gl_TessLevelOuter[2] = tessLevel2;
+		gl_TessLevelOuter[3] = tessLevel3;
+
+		if(gl_TessLevelOuter[0] < 1) gl_TessLevelOuter[0] = 1;
+		if(gl_TessLevelOuter[1] < 1) gl_TessLevelOuter[1] = 1;
+		if(gl_TessLevelOuter[2] < 1) gl_TessLevelOuter[2] = 1;
+		if(gl_TessLevelOuter[3] < 1) gl_TessLevelOuter[3] = 1;
+
+		gl_TessLevelInner[0] = max(tessLevel1, tessLevel3);
+		gl_TessLevelInner[1] = max(tessLevel2, tessLevel4);
+	}
+}

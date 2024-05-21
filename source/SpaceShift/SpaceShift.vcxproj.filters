@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="..\..\utils\GLUtils.cpp" />
+    <ClCompile Include="src\common\ObjectLoader.cpp" />
+    <ClCompile Include="src\common\Shader.cpp" />
+    <ClCompile Include="src\particles\ParticleGenerator.cpp" />
+    <ClCompile Include="src\particles\Particle.cpp" />
+    <ClCompile Include="src\models\ShipModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\CameraManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\InputManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\RenderManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\UpdateManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Ship.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\CollisionManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\colliders\AbstractCollider.cpp">
+      <Filter>Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\colliders\PolyCollider.cpp">
+      <Filter>Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\ShaderManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\MathUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\GlobalVars.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\builders\ShipBuilder.cpp">
+      <Filter>Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\TextManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\InterfaceManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\builders\InterfaceBuilder.cpp">
+      <Filter>Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\TextureManager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\projectiles\Projectile.cpp">
+      <Filter>Entities\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\colliders\PointCollider.cpp">
+      <Filter>Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\autonomy\AutonomyShipModule.cpp">
+      <Filter>Autonomy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\StageManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\Force.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics\SpacePhysics.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\ColliderModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\ProjectileModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\skills\DevouringSingularityModel.cpp">
+      <Filter>Models\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\interface\CursorModel.cpp">
+      <Filter>Models\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripts\skills\void\DevouringSingularity.cpp">
+      <Filter>scripts\skills\Void</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\utils\GLUtils.h" />
+    <ClInclude Include="src\common\ObjectLoader.h" />
+    <ClInclude Include="src\common\Shader.h" />
+    <ClInclude Include="src\particles\ParticleGenerator.h" />
+    <ClInclude Include="src\particles\Particle.h" />
+    <ClInclude Include="src\models\ShipModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\CoordinateTranslateUtils.h" />
+    <ClInclude Include="src\models\RenderModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\CameraManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\InputManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\RenderManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\UpdateManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Ship.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\CollisionManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\colliders\AbstractCollider.h">
+      <Filter>Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\colliders\PolyCollider.h">
+      <Filter>Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\ShaderManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\MathUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\GlobalVars.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\builders\ShipBuilder.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\TextManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripts\skills\SkillAbstract.h">
+      <Filter>scripts\skills</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\InterfaceManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\builders\InterfaceBuilder.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\TextureManager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\projectiles\Projectile.h">
+      <Filter>Entities\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\colliders\PointCollider.h">
+      <Filter>Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\autonomy\AutonomyShipModule.h">
+      <Filter>Autonomy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\manager\StageManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\Force.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\SpacePhysics.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\ColliderModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\ProjectileModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\skills\DevouringSingularityModel.h">
+      <Filter>Models\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\interface\CursorModel.h">
+      <Filter>Models\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripts\skills\void\DevouringSingularity.h">
+      <Filter>scripts\skills\Void</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\interface\text.vert">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\interface\text.frag">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\ship\ship.vert">
+      <Filter>Shaders\entities</Filter>
+    </None>
+    <None Include="shader\ship\ship.frag">
+      <Filter>Shaders\entities</Filter>
+    </None>
+    <None Include="shader\ship\ship.geom">
+      <Filter>Shaders\entities</Filter>
+    </None>
+    <None Include="shader\axis.frag">
+      <Filter>Shaders\debug</Filter>
+    </None>
+    <None Include="shader\axis.vert">
+      <Filter>Shaders\debug</Filter>
+    </None>
+    <None Include="shader\debug\debugcollider.frag">
+      <Filter>Shaders\debug</Filter>
+    </None>
+    <None Include="shader\debug\debugcollider.vert">
+      <Filter>Shaders\debug</Filter>
+    </None>
+    <None Include="shader\interface\interfaceElement.frag">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\interface\interfaceElement.vert">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\interface\cursor.frag">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\interface\cursor.vert">
+      <Filter>Shaders\interface</Filter>
+    </None>
+    <None Include="shader\skills\singularity.frag">
+      <Filter>Shaders\skills</Filter>
+    </None>
+    <None Include="shader\skills\singularity.vert">
+      <Filter>Shaders\skills</Filter>
+    </None>
+    <None Include="shader\projectile\ballistic.frag">
+      <Filter>Shaders\projectile</Filter>
+    </None>
+    <None Include="shader\projectile\ballistic.vert">
+      <Filter>Shaders\projectile</Filter>
+    </None>
+    <None Include="shader\projectile\ballistic.geom">
+      <Filter>Shaders\projectile</Filter>
+    </None>
+    <None Include="shader\particle\particles.vert">
+      <Filter>Shaders\particle</Filter>
+    </None>
+    <None Include="shader\particle\particles.frag">
+      <Filter>Shaders\particle</Filter>
+    </None>
+    <None Include="shader\particle\particles.comp">
+      <Filter>Shaders\particle</Filter>
+    </None>
+    <None Include="shader\particle\particles.geom">
+      <Filter>Shaders\particle</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{94c397a8-c131-49f2-8b41-16dbd1c00841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{cc07a1c3-98be-4fff-b343-efbebf84f7cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{733512a5-8e62-47fe-bc9b-6dd76abffd34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{6cbe8136-0774-4d64-a05d-0a8bfb8226ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{ecfef606-e2ad-41ab-bffc-03ea5382c8dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Colliders">
+      <UniqueIdentifier>{88a38f38-74f6-4331-9371-99eb4089632e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{1ccfaab8-5d74-4ebc-a717-73230aa62277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Builders">
+      <UniqueIdentifier>{bd5f69d1-aa9d-47e1-a030-099369707bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\interface">
+      <UniqueIdentifier>{adbf2ab4-2593-4de9-9da1-4d87f5dd5687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\entities">
+      <UniqueIdentifier>{cb32bc15-13da-4377-801c-8155c5e087e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\debug">
+      <UniqueIdentifier>{d524dba6-3b7c-4aa6-b21b-64bbb79c67cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scripts">
+      <UniqueIdentifier>{5c0accc3-10d6-4648-9888-81f879774ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scripts\skills">
+      <UniqueIdentifier>{454d649c-8f0d-4603-8d4f-144ff403022c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Projectiles">
+      <UniqueIdentifier>{3037dd45-0c7c-4158-b8e3-e70937a55cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\skills">
+      <UniqueIdentifier>{e1a1e290-808d-4a4b-8545-2cfc05abfe30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\projectile">
+      <UniqueIdentifier>{6e148969-2661-4faa-b6f2-bc0061a2539a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Autonomy">
+      <UniqueIdentifier>{a7c654a8-5d56-4bc2-93f5-5dac0d435422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{5d3e8a6a-b0bb-4cb6-8e9d-b9253df2d7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Skill">
+      <UniqueIdentifier>{33aae740-8454-4edc-869e-4214deac4c10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Interface">
+      <UniqueIdentifier>{f2122cdd-e5e3-4f7d-961e-f7bd486c8f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scripts\skills\Void">
+      <UniqueIdentifier>{d75e1c5a-abd9-4a63-adee-7538352ecb51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\particle">
+      <UniqueIdentifier>{cafa49f7-0143-49c1-a1a0-49c79501f222}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Readme.txt" />
+  </ItemGroup>
+</Project>

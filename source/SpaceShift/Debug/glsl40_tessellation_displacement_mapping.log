@@ -1,0 +1,54 @@
+﻿  InputManager.cpp
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec4.hpp(118,28): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec4.hpp(364,3): message : consulte a referência à instanciação 'glm::tvec4<T,P>' do modelo da classe que está sendo compilada
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec4.hpp(119,29): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec4.hpp(120,29): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec2.hpp(64,22): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec2.hpp(242,3): message : consulte a referência à instanciação 'glm::tvec2<T,P>' do modelo da classe que está sendo compilada
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec2.hpp(65,22): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec2.hpp(66,22): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec3.hpp(64,25): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec3.hpp(264,3): message : consulte a referência à instanciação 'glm::tvec3<T,P>' do modelo da classe que está sendo compilada
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec3.hpp(65,25): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\include\glm\detail\type_vec3.hpp(66,25): warning C4201: extensão não padrão usada: struct/union sem nome
+E:\Visual Studio\Projects\CGAT3\utils\glslprogram.h(56,34): warning C4100: 'other': parâmetro formal não referenciado
+E:\Visual Studio\Projects\CGAT3\utils\glslprogram.h(57,45): warning C4100: 'other': parâmetro formal não referenciado
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\Utils\MathUtils.h(30,66): warning C4244: 'return': conversão de 'double' para 'float', possível perda de dados
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\Utils\MathUtils.h(35,20): warning C4244: 'return': conversão de 'double' para 'float', possível perda de dados
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\Utils\MathUtils.h(40,42): warning C4244: 'argumento': conversão de 'double' para 'float', possível perda de dados
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': redefinição de macro
+E:\Visual Studio\Projects\CGAT3\include\GLFW\glfw3.h(85,1): message : consulte a definição anterior de 'APIENTRY'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\CameraManager.h(58,1): warning C4316: 'CameraManager': objeto alocado na pilha pode não estar alinhado 16
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\CameraManager.h(84,10): warning C4189: 'norm': variável local é inicializada mas não referenciada
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\entities\Entity.h(57,24): warning C4458: a declaração de 'position' oculta o membro da classe
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\entities\Entity.h(37,7): message : consulte a declaração de 'Entity::position'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\models\ShipModel.h(83,30): warning C4458: a declaração de 'ShipModelColor' oculta o membro da classe
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\models\ShipModel.h(42,7): message : consulte a declaração de 'ShipModel::ShipModelColor'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(34,40): warning C4100: 'window': parâmetro formal não referenciado
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(50,7): warning C4459: a declaração de 'modelMatrix' oculta uma declaração global
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(13,11): message : consulte a declaração de 'modelMatrix'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(51,7): warning C4459: a declaração de 'viewMatrix' oculta uma declaração global
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(14,11): message : consulte a declaração de 'viewMatrix'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(52,7): warning C4459: a declaração de 'modelViewMatrix' oculta uma declaração global
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(17,11): message : consulte a declaração de 'modelViewMatrix'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(53,7): warning C4459: a declaração de 'modelViewProjectionMatrix' oculta uma declaração global
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(16,11): message : consulte a declaração de 'modelViewProjectionMatrix'
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.cpp(149,42): warning C4458: a declaração de 'window' oculta o membro da classe
+E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\src\manager\InputManager.h(31,14): message : consulte a declaração de 'InputManager::window'
+  glsl40_tessellation_displacement_mapping.vcxproj -> E:\Visual Studio\Projects\CGAT3\bin\Trabalho1Cga.exe
+  compying shaders
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\axis.frag
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\axis.vert
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\trab1.frag
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\trab1.geom
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\trab1.tcs
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\trab1.tes
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\trab1.vert
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\debug\debugcollider.frag
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\debug\debugcollider.vert
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\interface\cursor.frag
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\interface\cursor.vert
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\ship\ship.frag
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\ship\ship.geom
+  E:\Visual Studio\Projects\CGAT3\demos\glsl40_tessellation_displacement_mapping\shader\ship\ship.vert
+  14 arquivo(s) copiado(s)
