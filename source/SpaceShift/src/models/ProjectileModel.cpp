@@ -23,7 +23,7 @@ ProjectileModel::ProjectileModel(Projectile* ProjectileController)
 {
 	this->Controller = ProjectileController;
 
-	position = ProjectileController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
+	position = ProjectileController->GetPosition();
 	rotationMatrix = ProjectileController->GetRotationMatrix();
 	scaleMatrix = ProjectileController->GetScaleMatrix();
 } 
