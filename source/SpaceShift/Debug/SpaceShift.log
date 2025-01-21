@@ -1,188 +1,70 @@
-﻿  ShipModel.cpp
-E:\Projects\SpaceShifter\include\glm\detail\type_vec4.hpp(118,28): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\include\glm\detail\type_vec4.hpp(118,28):
-  o contexto de instanciação do modelo (o mais antigo primeiro) é
-  	E:\Projects\SpaceShifter\include\glm\detail\type_vec4.hpp(103,9):
-  	ao compilar o modelo de classe 'glm::tvec4'
+﻿  GlobalVars.cpp
+F:\Projects\SpatialShifter\include\glm\detail\type_vec2.hpp(64,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
+      F:\Projects\SpatialShifter\include\glm\detail\type_vec2.hpp(64,11):
+      o contexto de instanciação do modelo (o mais antigo primeiro) é
+          F:\Projects\SpatialShifter\include\glm\detail\type_vec2.hpp(49,9):
+          ao compilar o modelo de classe 'glm::tvec2'
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec4.hpp(119,29): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec2.hpp(65,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec4.hpp(120,29): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec2.hpp(66,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec2.hpp(64,22): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\include\glm\detail\type_vec2.hpp(64,22):
-  o contexto de instanciação do modelo (o mais antigo primeiro) é
-  	E:\Projects\SpaceShifter\include\glm\detail\type_vec2.hpp(49,9):
-  	ao compilar o modelo de classe 'glm::tvec2'
+F:\Projects\SpatialShifter\include\glm\detail\type_vec3.hpp(64,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
+      F:\Projects\SpatialShifter\include\glm\detail\type_vec3.hpp(64,11):
+      o contexto de instanciação do modelo (o mais antigo primeiro) é
+          F:\Projects\SpatialShifter\include\glm\detail\type_vec3.hpp(49,9):
+          ao compilar o modelo de classe 'glm::tvec3'
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec2.hpp(65,22): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec3.hpp(65,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec2.hpp(66,22): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec3.hpp(66,11): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec3.hpp(64,25): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\include\glm\detail\type_vec3.hpp(64,25):
-  o contexto de instanciação do modelo (o mais antigo primeiro) é
-  	E:\Projects\SpaceShifter\include\glm\detail\type_vec3.hpp(49,9):
-  	ao compilar o modelo de classe 'glm::tvec3'
+F:\Projects\SpatialShifter\include\glm\detail\type_vec4.hpp(118,12): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
+      F:\Projects\SpatialShifter\include\glm\detail\type_vec4.hpp(118,12):
+      o contexto de instanciação do modelo (o mais antigo primeiro) é
+          F:\Projects\SpatialShifter\include\glm\detail\type_vec4.hpp(103,9):
+          ao compilar o modelo de classe 'glm::tvec4'
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec3.hpp(65,25): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec4.hpp(119,12): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\include\glm\detail\type_vec3.hpp(66,25): warning C4201: extensão não padrão usada: struct/union sem nome
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
+F:\Projects\SpatialShifter\include\glm\detail\type_vec4.hpp(120,12): warning C4201: extensão não padrão usada: struct/union sem nome
+  (compilando o arquivo fonte 'src/utils/GlobalVars.cpp')
   
-E:\Projects\SpaceShifter\source\SpaceShift\src\utils\MathUtils.h(31,66): warning C4244: 'return': conversão de 'double' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\utils\MathUtils.h(36,20): warning C4244: 'return': conversão de 'double' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\utils\MathUtils.h(41,42): warning C4244: 'argumento': conversão de 'double' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\utils\MathUtils.h(49,24): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': redefinição de macro
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\include\GLFW\glfw3.h(85,1):
-  consulte a definição anterior de 'APIENTRY'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\manager\CameraManager.h(89,10): warning C4189: 'norm': variável local é inicializada mas não referenciada
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\manager\CameraManager.h(107,28): warning C4458: a declaração de 'targetPoint' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\manager\CameraManager.h(42,8):
-  consulte a declaração de 'CameraManager::targetPoint'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(80,54): warning C4100: 'damageType': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(80,35): warning C4100: 'damage': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(83,58): warning C4100: 'collisionPoint': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(83,35): warning C4100: 'otherEntity': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(84,58): warning C4100: 'collisionPoint': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(84,37): warning C4100: 'otherShip': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(85,76): warning C4100: 'collisionPoint': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(85,49): warning C4100: 'otherProjectile': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(93,24): warning C4458: a declaração de 'position' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(47,7):
-  consulte a declaração de 'Entity::position'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(94,24): warning C4458: a declaração de 'rotation' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Entity.h(54,7):
-  consulte a declaração de 'Entity::rotation'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.h(64,21): warning C4458: a declaração de 'scale' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\models\RenderModel.h(35,7):
-  consulte a declaração de 'RenderModel::scale'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.h(65,30): warning C4458: a declaração de 'ShipModelColor' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.h(31,7):
-  consulte a declaração de 'ShipModel::ShipModelColor'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\colliders\PointCollider.h(39,49): warning C4100: 'point': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\colliders\PointCollider.h(43,54): warning C4100: 'point': parâmetro formal não referenciado
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ProjectileModel.h(50,21): warning C4458: a declaração de 'scale' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\models\RenderModel.h(35,7):
-  consulte a declaração de 'RenderModel::scale'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ProjectileModel.h(51,36): warning C4458: a declaração de 'ProjectileModelColor' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\models\ProjectileModel.h(31,7):
-  consulte a declaração de 'ProjectileModel::ProjectileModelColor'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\projectiles\projectile.h(62,23): warning C4458: a declaração de 'damage' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\entities\projectiles\projectile.h(41,8):
-  consulte a declaração de 'Projectile::damage'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\projectiles\projectile.h(62,42): warning C4458: a declaração de 'damageType' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\entities\projectiles\projectile.h(42,13):
-  consulte a declaração de 'Projectile::damageType'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\entities\Ship.h(109,40): warning C4244: 'return': conversão de 'double' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\manager\ShaderManager.h(100,31): warning C4458: a declaração de 'cursorShader' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\manager\ShaderManager.h(61,10):
-  consulte a declaração de 'ShaderManager::cursorShader'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\manager\ShaderManager.h(101,33): warning C4458: a declaração de 'particleShader' oculta o membro da classe
-  (compilando o arquivo fonte 'src/models/ShipModel.cpp')
-  E:\Projects\SpaceShifter\source\SpaceShift\src\manager\ShaderManager.h(59,10):
-  consulte a declaração de 'ShaderManager::particleShader'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(198,20): warning C4018: '<=': incompatibilidade de signed/unsigned
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(276,7): warning C4458: a declaração de 'rotationMatrix' oculta o membro da classe
-  E:\Projects\SpaceShifter\source\SpaceShift\src\models\RenderModel.h(33,12):
-  consulte a declaração de 'RenderModel::rotationMatrix'
-  
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(290,45): warning C4244: 'argumento': conversão de 'double' para 'const T', possível perda de dados
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(290,45): warning C4244:         with
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(290,45): warning C4244:         [
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(290,45): warning C4244:             T=float
-E:\Projects\SpaceShifter\source\SpaceShift\src\models\ShipModel.cpp(290,45): warning C4244:         ]
-  SpaceShift.vcxproj -> E:\Projects\SpaceShifter\bin\Trabalho1Cga.exe
+  SpaceShift.vcxproj -> F:\Projects\SpatialShifter\bin\Trabalho1Cga.exe
   compying shaders
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\axis.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\axis.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\trab1.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\trab1.geom
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\trab1.tcs
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\trab1.tes
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\trab1.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\debug\debugcollider.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\debug\debugcollider.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\cursor.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\cursor.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\interfaceElement.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\interfaceElement.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\text.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\interface\text.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\particle\particles.comp
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\particle\particles.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\particle\particles.geom
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\particle\particles.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\projectile\ballistic.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\projectile\ballistic.geom
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\projectile\ballistic.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\ship\ship.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\ship\ship.geom
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\ship\ship.vert
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\skills\singularity.frag
-  E:\Projects\SpaceShifter\source\SpaceShift\shader\skills\singularity.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\axis.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\axis.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\trab1.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\trab1.geom
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\trab1.tcs
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\trab1.tes
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\trab1.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\debug\debugcollider.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\debug\debugcollider.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\cursor.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\cursor.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\interfaceElement.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\interfaceElement.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\text.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\interface\text.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\particle\particles.comp
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\particle\particles.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\particle\particles.geom
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\particle\particles.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\projectile\ballistic.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\projectile\ballistic.geom
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\projectile\ballistic.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\ship\ship.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\ship\ship.geom
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\ship\ship.vert
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\skills\singularity.frag
+  F:\Projects\SpatialShifter\source\SpaceShift\shader\skills\singularity.vert
   27 arquivo(s) copiado(s)

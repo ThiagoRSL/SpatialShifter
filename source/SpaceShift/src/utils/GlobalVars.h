@@ -18,6 +18,8 @@ public:
 	static std::string CURSOR_IMAGE_PATH;
 	static std::string HOTBAR_EMPTY_SLOT_IMAGE_PATH;
 	static std::string PARTICLE_ENGINE_PATH;
+	static std::string INVENTORY_BACKGROUND_IMAGE_PATH;
+	static std::string INVENTORY_EMPTY_SLOT_IMAGE_PATH;
 	
 
 	

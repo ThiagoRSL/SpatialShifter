@@ -16,7 +16,6 @@ float GlobalVars::STANDARD_COLLIDING_RADIUS = 25.0f;
 float GlobalVars::STANDARD_AWARE_RADIUS = 100.0f;
 
 std::string GlobalPaths::DEVOURING_SINGULARITY_MODEL_PATH = std::string("..//source//SpaceShift//assets//skills//devouringSphere.obj");
-
 std::string GlobalPaths::BACKGROUND_IMAGE_PATH = std::string("..//source//SpaceShift//assets//background.png");
 std::string GlobalPaths::CURSOR_IMAGE_PATH = std::string("..//source//SpaceShift//assets//cursor.png");
 std::string GlobalPaths::HOTBAR_EMPTY_SLOT_IMAGE_PATH = std::string("../source/SpaceShift/assets/sprites//EmptySlot.png");
@@ -24,3 +23,10 @@ std::string GlobalPaths::HOTBAR_EMPTY_SLOT_IMAGE_PATH = std::string("../source/S
 std::string GlobalPaths::PARTICLE_ENGINE_PATH = std::string("..//source//SpaceShift//assets//cursor.png");
 
 glm::vec4 GlobalColors::DEVOURING_SINGULARITY_COLOR = glm::vec4(0.1012f, 0.0118f, 0.38f, 1.0f);
+
+
+// Interface - UI Elements
+
+
+std::string GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH = std::string("..//source//SpaceShift//assets//UI//InventoryBackground.png");
+std::string GlobalPaths::INVENTORY_EMPTY_SLOT_IMAGE_PATH = std::string("../source/SpaceShift/assets/sprites//EmptySlot.png");

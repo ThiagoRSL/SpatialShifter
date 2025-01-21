@@ -16,6 +16,12 @@
 
 class InputManager;
 
+enum class InterfaceInteraction {
+	MOUSE_CLICK,
+	MOUSE_HOVER,
+	MOUSE_LEAVE
+};
+
 enum class InterfaceElementIndex {
 	INDEX_LESS,
 	ROOT,
@@ -48,6 +54,8 @@ private:
 	GLuint BackgroundTextureID;
 	int TextureIndex;
 	bool HasTexture;
+	bool DebugHighlight;
+
 
 	vec4 backgroundColor;
 	vec4 borderColor;
@@ -65,7 +73,7 @@ public:
 	void RenderChildren();
 	void Render();
 	void Resize();
-
+	void Interact(InterfaceInteraction interaction);
 
 	void SetElementIndex(InterfaceElementIndex index);
 		
@@ -92,6 +100,11 @@ public:
 	void GenerateBuffers();
 	void UpdateComponents();
 
+	void DebugHighlighted()
+	{
+		this->DebugHighlight = true;
+	}
+
 };
 
 class InterfaceManager
@@ -108,10 +121,16 @@ private:
 	mat4 InterfaceProjection;
 
 
+	InterfaceElement* MouseHoverElement = NULL;
+
+
 public:
 	mat4 GetInterfaceProjection() { return this->InterfaceProjection; }
 	mat4* GetInterfaceProjectionRef() { return &this->InterfaceProjection; }
 	void SetInterfaceProjection(mat4 projectionMatrix) { this->InterfaceProjection = projectionMatrix; }
+
+	void SetMouseHoverElement(InterfaceElement* IE) { MouseHoverElement = IE; };
+	InterfaceElement* GetMouseHoverElement() { return MouseHoverElement; }
 
 	void Init();
 	void SetElementIndexed(InterfaceElement* element, InterfaceElementIndex index) { DictIndexedInterfaceElements[index] = element; }
@@ -135,6 +154,40 @@ public:
 		}
 		return interfaceManager;
 	};
+
+	InterfaceElement* GetElementAt(vec2 pos)
+	{
+		std::vector<InterfaceElement*> *ElementsToCheck = &RenderList;
+		printf("\n %i ", RenderList.size());
+		return ElementAt(pos, ElementsToCheck);
+	}
+
+	InterfaceElement* ElementAt(vec2 pos, std::vector<InterfaceElement*>* ElementsToCheck)
+	{
+		for (int i = 0; i < ElementsToCheck->size(); i++)
+		{
+			InterfaceElement* IElement = ElementsToCheck->at(i);
+
+			vec2 IEPosition = IElement->GetPosition();
+			float IEHeight = IElement->GetHeight();
+			float IEWidth = IElement->GetWidth();
+
+			std::vector<InterfaceElement*>* ChildrenElement = IElement->GetChildren();
+			InterfaceElement* SucessorAt = ElementAt(pos, ChildrenElement);
+			if (SucessorAt != NULL)
+				return SucessorAt;
+
+			if (IEPosition.x <= pos.x && IEPosition.x + IEWidth >= pos.x)
+			{
+				if (IEPosition.y >= pos.y && pos.y >= IEPosition.y - IEHeight)
+				{
+					return IElement;
+				}
+			}
+		}
+
+		return NULL;
+	}
 };
 
 

@@ -158,12 +158,19 @@ void InputManager::ProcessMouse(double deltaTime)
 		{
 			lastPressed2 = true;
 
-			//Aqui tá errado, as coordenadas não representam.
-			vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
-				CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
-					CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix());
+			if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
+			{
+				InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_CLICK);
+			}
+			else
+			{
+				//Aqui tá errado, as coordenadas não representam.
+				vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
+					CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
+						CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix());
 
-			PlayerShip->UseSkill(shotTarget);
+				PlayerShip->UseSkill(shotTarget);
+			}
 		}
 	}
 	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
@@ -229,7 +236,21 @@ void InputManager::UpdateWindowSize()
 
 void InputManager::VerifyMouseCollision()
 {
+	vec2 convertedMousePosition = vec2((this->mousePosition.x + windowSize.x) / 2.0, (windowSize.y - this->mousePosition.y) / 2.0);
+	InterfaceElement* IE = InterfaceManager::GetInstance()->GetElementAt(convertedMousePosition);
 
+	//printf("\n MOUSE POS: %f %f", convertedMousePosition.x, convertedMousePosition.y);
+
+	if (InterfaceManager::GetInstance()->GetMouseHoverElement() != IE)
+	{
+		if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
+			InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_LEAVE);
+
+		InterfaceManager::GetInstance()->SetMouseHoverElement(IE);
+
+		if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
+			InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_HOVER);
+	}
 }
 
 void InputManager::RenderCursor()

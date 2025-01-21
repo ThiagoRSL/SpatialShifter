@@ -5,13 +5,45 @@ using namespace std;
 
 void InterfaceBuilder::BuildInventory()
 {
+	float quickSlotSize, quickSlotSpacing, width;
+	quickSlotSize = 64.0;
+
 	InterfaceManager* IM = InterfaceManager::GetInstance();
 
 	InterfaceElement* InventoryBody = new InterfaceElement();
-	InventoryBody->SetPosition(vec2(500.0f, 500.0f));
-	InventoryBody->SetHeight(300.0f);
-	InventoryBody->SetWidth(300.0f);
-	InventoryBody->AddText(std::string("Inventario lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll"));
+	InventoryBody->SetPosition(vec2(200.0f, 1000.0f));
+	InventoryBody->SetHeight(800.0f);
+	InventoryBody->SetWidth(600.0f);
+	InventoryBody->SetTexture(GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH.c_str());
+	//InventoryBody->AddText(std::string("Inventario lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll"));
+
+	// Adiciona os Slots
+
+	float totalContainerWidth = 600, totalContainerHeight = 800;
+	float totalContainerElementsLine = 8;
+	float totalContainerElementsCollum = 10;
+	float spacingWidth = (totalContainerWidth - (quickSlotSize * totalContainerElementsLine)) / (totalContainerElementsLine + 1);
+	float spacingHeight = (totalContainerHeight - (quickSlotSize * totalContainerElementsCollum)) / (totalContainerElementsCollum + 1);
+
+
+	for (int i = 0; i < totalContainerElementsLine; i++)
+	{
+		for (int j = 0; j < totalContainerElementsCollum; j++)
+		{
+			printf("\n\New Slot\n\n");
+
+			InterfaceElement* slot = new InterfaceElement();
+
+			slot->SetPosition(vec2(spacingWidth + (spacingWidth * i) + (quickSlotSize * i), -(spacingHeight + (spacingHeight * j) + (quickSlotSize * j))));
+			slot->SetHeight(quickSlotSize);
+			slot->SetWidth(quickSlotSize);
+			//slot->SetElementIndex(quickSlotIndexes.at(i));
+			slot->SetTexture(GlobalPaths::INVENTORY_EMPTY_SLOT_IMAGE_PATH.c_str());
+			slot->SetPlacement(ElementPlacement::RELATIVE_PLACEMENT);
+			
+			InventoryBody->AddInterfaceComponent(slot);
+		}
+	}
 
 	//ordem que ele é adicionado impacta
 

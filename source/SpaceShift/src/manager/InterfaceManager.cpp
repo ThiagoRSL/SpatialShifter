@@ -10,6 +10,7 @@ InterfaceManager* InterfaceManager::interfaceManager = nullptr;
 
 InterfaceManager::InterfaceManager()
 {
+	MouseHoverElement = NULL;
 	vec2 windowSize = InputManager::GetInstance()->GetWindowSize();
 	RootInterfaceElement = new InterfaceElement();
 	RootInterfaceElement->SetWidth(windowSize.x);
@@ -102,6 +103,7 @@ void InterfaceManager::RenderElement(InterfaceElementIndex index)
 
 InterfaceElement::InterfaceElement()
 {
+	this->DebugHighlight = false;
 	this->HasTexture = false;
 	this->IEShader = ShaderManager::GetInstance()->GetInterfaceElementShader();
 	this->FatherElement = nullptr;
@@ -153,9 +155,14 @@ void InterfaceElement::Render()
 		// TODO: MELHOR USO DAS UNIDADES DE TEXTURA
 		IEShader->setUniform(string("BackgroundTexture"), 0);
 		IEShader->setUniform(string("BackgroundColor"), this->backgroundColor);
+
+
 		IEShader->setUniform(string("Position"), this->GetPosition());
 		//Renderiza o Elemento
 		// TODO: MELHOR USO DAS UNIDADES DE TEXTURA
+
+
+
 		glActiveTexture(GL_TEXTURE0);
 		TextureManager::Inst()->BindTexture(TextureIndex);
 		glBindVertexArray(InterfaceElementVBOID);
@@ -191,6 +198,7 @@ std::vector<InterfaceElement*>* InterfaceElement::GetChildren()
 
 	return elements;
 }
+
 
 vec2 InterfaceElement::GetPosition()
 {
@@ -317,7 +325,7 @@ void InterfaceElement::SetTexture(const char* texturePath)
 {
 	//if (HasTexture)
 	//	TextureManager::Inst()->UnloadTexture(BackgroundTextureID);
-	if (!HasTexture) //else
+	if (!HasTexture || HasTexture) //else
 	{
 		TextureIndex = TextureManager::Inst()->ReserveIndex();
 		GenerateBuffers();
@@ -331,3 +339,22 @@ void InterfaceElement::SetTexture(const char* texturePath)
 
 }
 
+
+void InterfaceElement::Interact(InterfaceInteraction interaction)
+{
+	switch (interaction)
+	{
+		case InterfaceInteraction::MOUSE_CLICK:
+			printf("MOUSE CLICK INTERFACE ELEMENT INTERACTION");
+			break;
+		case InterfaceInteraction::MOUSE_HOVER:
+			printf("MOUSE HOVER INTERFACE ELEMENT INTERACTION");
+			SetTexture(GlobalPaths::PARTICLE_ENGINE_PATH.c_str());
+			break;
+		case InterfaceInteraction::MOUSE_LEAVE:
+			printf("MOUSE LEAVE INTERFACE ELEMENT INTERACTION");
+			break;
+		default:
+			break;
+	}
+}

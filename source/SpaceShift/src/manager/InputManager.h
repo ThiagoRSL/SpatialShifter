@@ -34,8 +34,8 @@ private:
 	GLFWwindow* window;
 	vec2 windowSize;
 	CursorModel Model;
-
 	vec2 mousePosition;
+
 	Ship* DebugEnemy;
 	Ship* PlayerShip;
 
