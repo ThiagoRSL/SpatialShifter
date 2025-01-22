@@ -2,15 +2,15 @@
 #include "DevouringSingularity.h"
 using namespace std;
 
-DevouringSingularity::DevouringSingularity(Entity* sourceEntity, vec3 targetpoint, float mass, float radius, float dps, double duration)
+DevouringSingularity::DevouringSingularity(Entity* sourceEntity, vec3 targetpoint, float mass, float dps, double duration)
 {
 	this->source = sourceEntity;
 	this->singularityColor = GlobalColors::DEVOURING_SINGULARITY_COLOR;
 	this->SingularityMass = mass;
-	this->AttractingRadius = radius;
+	this->AttractingRadius = mass * 0.001;
 	this->AttractingCenter = targetpoint;
-	this->DamagePerSecond = dps;
-	this->timeToLive = duration;
+	this->BaseDamagePerSecond = dps;
+	this->timeToLive = mass * 0.0002;
 
 	this->Model = DevouringSingularityModel(this);
 	this->Model.Init();
@@ -50,23 +50,30 @@ void DevouringSingularity::UpdateAttractingEntities(double deltaTime)
 
 	for (const auto& attracting : targets)
 	{
-		float distance = MathUtils::Norm(attracting->GetPosition() - AttractingCenter);
+		float distance = MathUtils::Norm((attracting->GetPosition() - CameraManager::GetInstance()->WorldPivot()) - (AttractingCenter - CameraManager::GetInstance()->WorldPivot()));
 		if (distance < AttractingRadius)
 		{
 
-			vec3 direction = AttractingCenter - attracting->GetPosition();
+			vec3 direction = (AttractingCenter - CameraManager::GetInstance()->WorldPivot()) - (attracting->GetPosition() - CameraManager::GetInstance()->WorldPivot());
 			direction = glm::normalize(direction);
 			direction.z = 0.f;	//Não deixa puxar pra cima
 
-			float forceIntensity = ((float)attracting->GetMass() * SingularityMass) / ((0.5) + (distance * distance));
+			float forceIntensity = ((float)attracting->GetMass() * SingularityMass) / (10 * (distance * distance));
 			attracting->AddInstantaneousForce(Force(direction * forceIntensity));
-			attracting->ReceiveDamage(DamagePerSecond * deltaTime, DamageType::VOID_DAMAGE);
+			attracting->ReceiveDamage(BaseDamagePerSecond * deltaTime, DamageType::VOID_DAMAGE);
+			if (distance < 2.5)
+			{
+				this->SingularityMass += attracting->GetMass();
+				this->AttractingRadius += attracting->GetMass() * 0.01;
+				this->timeToLive += attracting->GetMass() * 0.002;
+				attracting->SetLinearSpeed(vec3(0.0, 0.0, 0.0));
+				attracting->ClearInstantaneousForce();
+				attracting->SetAngularSpeed(vec3(MathUtils::RandomBetween(10.0,100.0), MathUtils::RandomBetween(10.0, 100.0), MathUtils::RandomBetween(10.0, 100.0)));
+				attracting->ReceiveDamage(1000000, DamageType::VOID_DAMAGE);
+			}
 		}
 		// o que fazer caso o elemento estiver no dicionário e não pertencer ao raio? (MARCAR PARA EXCLUSÂO)
 	}
-
-
-
 }
 
 

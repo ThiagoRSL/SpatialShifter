@@ -13,7 +13,7 @@ StageManager::StageManager()
 void StageManager::UpdateStage(double t)
 {
 	int deltaDifficulty = KillCounter / 2;
-	for (int i = EnemyCounter; i < (10 + deltaDifficulty); i++)
+	for (int i = Enemies.size(); i < (10 + deltaDifficulty); i++)
 	{
 		SpawnEnemy();
 	}
@@ -54,7 +54,6 @@ void StageManager::SpawnEnemy()
 		tempEnemyShip->SetAutonomous(new AutonomyShipModule(tempEnemyShip, 100.f, PlayerShip->GetPositionRef()));
 	//tempEnemyShip->SetAngularSpeed(tempEnemyShip->GetPosition() + vec3(0.0f, 0.0f, 10.0f));
 	Enemies.push_back(tempEnemyShip);
-	EnemyCounter++;
 }
 
 void StageManager::SpawnBoss()
@@ -75,6 +74,21 @@ void StageManager::SpawnBoss()
 	Enemies.push_back(tempEnemyShip);
 }
 
+void StageManager::ShipDestroyed(Ship* ship)
+{
+
+	if (ship->GetFaction() != Faction::PLAYER)
+	{
+		for (auto it = Enemies.begin(); it != Enemies.end(); ++it) {
+			if (*it == ship) {
+				Enemies.erase(it); 
+				break;  // Exit the loop after erasing
+			}
+		}
+	}	
+
+	//TODO:: CLEAR MEMORY, DEAD SHIPS DO STILL KEEP MODEL BODIES.
+}
 
 void StageManager::Init()
 {

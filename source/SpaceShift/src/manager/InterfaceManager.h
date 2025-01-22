@@ -17,7 +17,8 @@
 class InputManager;
 
 enum class InterfaceInteraction {
-	MOUSE_CLICK,
+	MOUSE_CLICK_LEFT,
+	MOUSE_CLICK_RIGHT,
 	MOUSE_HOVER,
 	MOUSE_LEAVE
 };
@@ -158,7 +159,6 @@ public:
 	InterfaceElement* GetElementAt(vec2 pos)
 	{
 		std::vector<InterfaceElement*> *ElementsToCheck = &RenderList;
-		printf("\n %i ", RenderList.size());
 		return ElementAt(pos, ElementsToCheck);
 	}
 

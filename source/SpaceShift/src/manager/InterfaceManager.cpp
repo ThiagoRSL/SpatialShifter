@@ -344,8 +344,11 @@ void InterfaceElement::Interact(InterfaceInteraction interaction)
 {
 	switch (interaction)
 	{
-		case InterfaceInteraction::MOUSE_CLICK:
-			printf("MOUSE CLICK INTERFACE ELEMENT INTERACTION");
+		case InterfaceInteraction::MOUSE_CLICK_RIGHT:
+			printf("MOUSE CLICK (RIGHT) INTERFACE ELEMENT INTERACTION");
+		break;
+		case InterfaceInteraction::MOUSE_CLICK_LEFT:
+			printf("MOUSE CLICK (LEFT) INTERFACE ELEMENT INTERACTION");
 			break;
 		case InterfaceInteraction::MOUSE_HOVER:
 			printf("MOUSE HOVER INTERFACE ELEMENT INTERACTION");

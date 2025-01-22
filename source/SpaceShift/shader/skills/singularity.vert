@@ -19,6 +19,6 @@ void main()
     corOscilante = clamp(corOscilante, 0.0, 1.0); // Garante que a cor está no intervalo válido
 
     vColor = corOscilante;
-
-	gl_Position = MVP * (vec4(Vertex.x, Vertex.y, Vertex.z, 1.0) + vec4(Position.xyz, 1.0));
+    
+	gl_Position = MVP * (vec4(Vertex.x, Vertex.y, Vertex.z, 1.0) + vec4(Position.xyz, 0.0));
 }

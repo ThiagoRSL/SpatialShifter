@@ -114,3 +114,8 @@ void Entity::AddInstantaneousForce(Force f)
 {
 	instantaneousForces.push_back(f);
 }
+
+void Entity::ClearInstantaneousForce()
+{
+	instantaneousForces.clear();
+}

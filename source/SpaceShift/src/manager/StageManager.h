@@ -34,6 +34,7 @@ public:
 	void KillCountIncrement() { KillCounter++; }
 	void SetKillCount(int v) { KillCounter = v; }
 	void SetPlayer(Ship* PlayerShip) { this->PlayerShip = PlayerShip; }
+	void ShipDestroyed(Ship* ship);
 	void UpdateStage(double t);
 	void Init();
 

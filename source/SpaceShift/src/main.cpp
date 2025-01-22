@@ -243,6 +243,15 @@ int main(int argc, char* argv[])
 	//CameraManager::GetInstance()->UpdateCameraSettings();
 	//Se isso for carregado depois dos monstros o mouse para de renderizar ???
 
+	tempEnemyShip = new Ship(ShipTypeId::STANDARD_SHIP_ID);
+	tempEnemyShip->SetPosition(vec3(0.0f, 0.0f, 0.0f));
+	tempEnemyShip->SetLinearSpeed(vec3(0.0f, 0.0f, 0.0f));
+	tempEnemyShip->SetShipColor(vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	tempEnemyShip->SetMass(3500);
+	tempEnemyShip->SetHitPoints(100.0f);
+	tempEnemyShip->SetThrustIntensityMax(300000.0f);
+	tempEnemyShip->SetFaction(Faction::PLAYER);
+	tempEnemyShip->Init();
 
 	PlayerShip = new Ship(ShipTypeId::STANDARD_SHIP_ID);
 	PlayerShip->SetPosition(vec3(0.0f, 0.0f, 0.0f));

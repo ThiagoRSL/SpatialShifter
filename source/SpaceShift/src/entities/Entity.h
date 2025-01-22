@@ -75,6 +75,7 @@ public:
 	void AddForce(Force* f) { forces.push_back(f); }
 	void AddTempForce(Force f, double timeToLive);
 	void AddInstantaneousForce(Force f);
+	void ClearInstantaneousForce();
 
 
 	virtual void ReceiveDamage(float damage, DamageType damageType) { return; }

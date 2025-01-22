@@ -120,7 +120,7 @@ void InputManager::ProcessMouse(double deltaTime)
 	{
 		vec3 worldPivot = CameraManager::GetInstance()->WorldPivot();
 		//Aqui tá errado, as coordenadas não representam.
-		vec3 shotTarget = CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y, CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix());
+		vec3 shotTarget = CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y, CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
 		shotTarget.x += worldPivot.x;
 		shotTarget.y += worldPivot.y;
 
@@ -135,14 +135,20 @@ void InputManager::ProcessMouse(double deltaTime)
 		if (!lastPressed)
 		{
 			lastPressed = true;
+			if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
+			{
+				InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_CLICK_LEFT);
+			}
+			else
+			{
+				//Aqui tá errado, as coordenadas não representam.
+				vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
+					CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
+						CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
 
-			//Aqui tá errado, as coordenadas não representam.
-			vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
-				CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
-					CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix());
-
-			PlayerShip->ShotAt(shotTarget);
-			//DebugEnemy->SetPosition(shotTarget);
+				PlayerShip->ShotAt(shotTarget);
+				//DebugEnemy->SetPosition(shotTarget);
+			}
 		}
 	}
 	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
@@ -160,14 +166,16 @@ void InputManager::ProcessMouse(double deltaTime)
 
 			if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
 			{
-				InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_CLICK);
+				InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_CLICK_RIGHT);
 			}
 			else
 			{
 				//Aqui tá errado, as coordenadas não representam.
 				vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
 					CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
-						CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix());
+						CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
+
+				shotTarget.z = PlayerShip->GetPosition().z;
 
 				PlayerShip->UseSkill(shotTarget);
 			}

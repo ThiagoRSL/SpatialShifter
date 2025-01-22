@@ -13,12 +13,12 @@
 
 class CoordinateTranslateUtils
 {
-	public:static glm::vec3 ScreenToWorld(double screenX, double screenY, int windowWidth, int windowHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+	public:static glm::vec3 ScreenToWorld(double z_target, double screenX, double screenY, int windowWidth, int windowHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
         printf("\nScreen (%f, %f)", screenX, screenY);
-
-        screenX = (screenX + windowWidth / 2);
-        screenY = (-screenY + windowHeight / 2);
+        
+        float x = (screenX + windowWidth)/2;
+        float y = (-screenY + windowHeight)/2;
         printf("After Transform (%f, %f)", screenX, screenY);
 
         glm::vec4 viewport = glm::vec4(0.0f, 0.0f, windowWidth, windowHeight);
@@ -42,5 +42,34 @@ class CoordinateTranslateUtils
         glm::vec3 objcoord = lineStart + t * lineDir;
 
         return objcoord;
+    }
+    // Função para converter as coordenadas da tela para o mundo 3D
+    public:static glm::vec3 ScreenToWorld(int screenX, int screenY, int windowWidth, int windowHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix, float z_target)
+    {
+        // Normalizar as coordenadas de tela para o intervalo [-1, 1]
+        float x = (screenX + windowWidth)/2;
+        float y = (-screenY + windowHeight)/2;  // Atenção à inversão de y
+
+        // Definir a coordenada z como 0 (para plano próximo) e 1 (para plano distante)
+        glm::vec3 nearPoint(x, y, 0.0f);
+        glm::vec3 farPoint(x, y, 1.0f);
+
+        // Definir o viewport
+        glm::vec4 viewport(0.0f, 0.0f, windowWidth, windowHeight);
+
+        // Desprojetar as coordenadas de tela para 3D (com a coordenada z = 0.0f para near e z = 1.0f para far)
+        glm::vec3 worldNear = glm::unProject(nearPoint, viewMatrix, projectionMatrix, viewport);
+        glm::vec3 worldFar = glm::unProject(farPoint, viewMatrix, projectionMatrix, viewport);
+
+        // Calcular a direção da linha (do ponto próximo até o ponto distante)
+        glm::vec3 direction = glm::normalize(worldFar - worldNear);
+
+        // Calcular o parâmetro t para a interseção com o plano z = z_target
+        float t = (z_target - worldNear.z) / direction.z;
+
+        // Calcular o ponto de interseção com o plano z = z_target
+        glm::vec3 intersection = worldNear + t * direction;
+
+        return intersection;
     }
 };

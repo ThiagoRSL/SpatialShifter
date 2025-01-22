@@ -91,7 +91,7 @@ void Ship::UseSkill(vec3 shotTarget)
 	if (this->shipState == ShipState::DESTROYED)
 		return;
 
-	DevouringSingularity* ds = new DevouringSingularity(this, shotTarget, 20000.0f, 50.0f, 1.0, 10.0f);
+	DevouringSingularity* ds = new DevouringSingularity(this, shotTarget, 40000.0f, 1.0, 10.0f);
 	ActiveSkills.push_back(ds);
 	UpdateManager::GetInstance()->AddUpdatable(ds);
 }
@@ -270,7 +270,9 @@ void Ship::Destroy()
 	this->linearSpeed = vec3(0.0f);
 
 	CollisionManager::GetInstance()->RemoveCollider(&this->Collider);
-	StageManager::GetInstance()->KillCountIncrement();
+	StageManager::GetInstance()->ShipDestroyed(this);
+
+	
 }
 
 

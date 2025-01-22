@@ -25,7 +25,7 @@ ShipModel::ShipModel(Ship* ShipController)
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
 	scale = vec3(1.0f);
-	MaxParticlesNumber = 10000;
+	MaxParticlesNumber = 500;
 	MaxTimeToLive = 0.35f;
 	NextParticleIndex = 0;
 	ParticleNumber = 0;
@@ -113,6 +113,7 @@ void ShipModel::Render()
 	ParticleShader->setUniform(string("CamTrans"), CameraManager::GetInstance()->WorldPivot());
 	ParticleShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	ParticleShader->setUniform(string("TimeNow"), UpdateManager::GetInstance()->GetTimeCounter());
+
 
 	ShipModelShader->setUniform(string("MVP"), modelViewProjectionMatrix); //ModelViewProjection
 	ShipModelShader->setUniform(string("Position"), position);

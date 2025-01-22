@@ -31,14 +31,14 @@ class DevouringSingularity : public SkillAbstract
 		int skillId;
 		float SingularityMass;
 		float AttractingRadius;
-		double DamagePerSecond;
+		double BaseDamagePerSecond;
 		vec3 AttractingCenter;
 		vec4 singularityColor;
 		std::map<Entity*, Force*> DictAttractingEntities;
 		DevouringSingularityModel Model;
 
 	public:
-		DevouringSingularity(Entity* sourceEntity, vec3 targetpoint, float mass, float radius, float dps, double duration);
+		DevouringSingularity(Entity* sourceEntity, vec3 targetpoint, float mass, float dps, double duration);
 		void Init();
 		void Update(double t);
 		void Render() { this->Model.Render(); }

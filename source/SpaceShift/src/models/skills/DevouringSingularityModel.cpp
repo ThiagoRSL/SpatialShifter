@@ -6,7 +6,8 @@ using namespace std;
 DevouringSingularityModel::DevouringSingularityModel(DevouringSingularity* Skill)
 {
 	this->Skill = Skill;
-	this->Position = Skill->GetAttractingCenter();
+	this->Position = Skill->GetAttractingCenter() - CameraManager::GetInstance()->WorldPivot();
+	this->Position.z = 0.0f;
 } 
 
 void DevouringSingularityModel::Init()
@@ -44,8 +45,9 @@ void DevouringSingularityModel::Init()
 
 void DevouringSingularityModel::Render()
 {
+	this->Position = Skill->GetAttractingCenter() - CameraManager::GetInstance()->WorldPivot();
 	SkillShader->setUniform(string("Time"), (float) this->Skill->GetTimeToLive());
-	SkillShader->setUniform(string("Position"), this->Skill->GetAttractingCenter() - CameraManager::GetInstance()->WorldPivot());
+	SkillShader->setUniform(string("Position"), this->Position);
 
 	SkillShader->Use();
 	glBindVertexArray(VaoID);
