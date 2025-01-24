@@ -36,7 +36,8 @@ protected:
 	int size;
 	double mass; //F = m . a	-> F/m = a
 	float hitPoints;
-	
+	bool isDestroyed;
+
 	std::vector<Force*> forces = std::vector<Force*>();
 	std::vector<Force> instantaneousForces = std::vector<Force>();
 	std::vector<std::pair<double, Force>> tempForces = std::vector<std::pair<double, Force>>();
@@ -63,7 +64,7 @@ public:
 	void Init();
 	virtual void Update(double t);
 	virtual void Render() = 0;
-	virtual void Destroy() = 0;;
+	virtual void Destroy() { this->isDestroyed = true; }
 	//void resize(int, int);
 
 	void UpdateForces(double t);
@@ -78,7 +79,8 @@ public:
 	void ClearInstantaneousForce();
 
 
-	virtual void ReceiveDamage(float damage, DamageType damageType) { return; }
+	virtual bool IsDestroyed() { return this->isDestroyed; }
+	virtual DamageCallback ReceiveDamage(float damage, DamageType damageType) { return DamageCallback::NONE; }
 
 	//Funções para lidar com a colisão entre tipos colliders diferentes.
 	virtual void CollideWith(Entity& otherEntity, glm::vec3 collisionPoint) { return; }

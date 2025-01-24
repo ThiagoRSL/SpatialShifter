@@ -43,6 +43,16 @@ class GlobalVars
 	public:
 };
 
+enum class DamageCallback
+{
+	NONE,
+	ALREADY_DESTROYED,
+	NOT_RECEIVED,
+	RECEIVED,
+	DESTROYED
+};
+
+
 enum class DamageType
 { 
 	COLLISION_DAMAGE,

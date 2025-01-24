@@ -52,17 +52,17 @@ public:
 	void Destroy();
 	void Erase();
 
+	DamageCallback ReceiveDamage(float damage, DamageType damageType);
+
 	//Funções para lidar com a colisão entre tipos colliders diferentes.
 	virtual void CollideWith(Entity& otherEntity, glm::vec3 collisionPoint);
 	virtual void CollideWithShip(Ship& otherShip, glm::vec3 collisionPoint);
 	virtual void CollideWithProjectile(Projectile& otherProjectile, glm::vec3 collisionPoint);
-
 	virtual void CollideAtProjection(Entity& otherEntity, glm::vec3 collisionPoint);
 
 	void SetDamage(float damage, DamageType damageType) { this->damage = damage; this->damageType = damageType; };
 	Entity* GetSource() { return this->source; }
 
-	bool IsDestroyed() { return this->destroyed; }
 	double GetDestroyedTime() { return this->destroyedTime; }
 	ProjectileTypeID GetProjectileType() { return this->ProjectileType; }
 	mat4 GetScaleMatrix() { return this->scaleMatrix; }; 

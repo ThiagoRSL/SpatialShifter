@@ -60,17 +60,29 @@ void DevouringSingularity::UpdateAttractingEntities(double deltaTime)
 
 			float forceIntensity = ((float)attracting->GetMass() * SingularityMass) / (10 * (distance * distance));
 			attracting->AddInstantaneousForce(Force(direction * forceIntensity));
-			attracting->ReceiveDamage(BaseDamagePerSecond * deltaTime, DamageType::VOID_DAMAGE);
+
+			float dmg;
+
 			if (distance < 2.5)
+			{
+				dmg = 1000000;
+
+				attracting->SetLinearSpeed(vec3(0.0, 0.0, 0.0));
+				attracting->ClearInstantaneousForce();
+				attracting->SetAngularSpeed(vec3(MathUtils::RandomBetween(10.0, 100.0), MathUtils::RandomBetween(10.0, 100.0), MathUtils::RandomBetween(10.0, 100.0)));
+			}
+			else
+			{
+				dmg = BaseDamagePerSecond * deltaTime;
+			}
+			
+			if (attracting->ReceiveDamage(dmg, DamageType::VOID_DAMAGE) == DamageCallback::DESTROYED)
 			{
 				this->SingularityMass += attracting->GetMass();
 				this->AttractingRadius += attracting->GetMass() * 0.01;
 				this->timeToLive += attracting->GetMass() * 0.002;
-				attracting->SetLinearSpeed(vec3(0.0, 0.0, 0.0));
-				attracting->ClearInstantaneousForce();
-				attracting->SetAngularSpeed(vec3(MathUtils::RandomBetween(10.0,100.0), MathUtils::RandomBetween(10.0, 100.0), MathUtils::RandomBetween(10.0, 100.0)));
-				attracting->ReceiveDamage(1000000, DamageType::VOID_DAMAGE);
 			}
+
 		}
 		// o que fazer caso o elemento estiver no dicionário e não pertencer ao raio? (MARCAR PARA EXCLUSÂO)
 	}

@@ -106,6 +106,7 @@ void Entity::Update(double t)
 }
 void Entity::Init()
 {
+	isDestroyed = false;
 	inertiaMoment = 1.0f;
 }
 

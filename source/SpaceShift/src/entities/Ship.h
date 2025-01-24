@@ -91,7 +91,7 @@ public:
 	void ShotAt(vec3 shotTarget);
 	void UseSkill(vec3 shotTarget);
 	void SetThrustMode(float value);
-	void ReceiveDamage(float damage, DamageType damageType);
+	DamageCallback ReceiveDamage(float damage, DamageType damageType);
 
 	void CollideWith(Entity& otherEntity, glm::vec3 collisionPoint);
 	void CollideWithShip(Ship& otherShip, glm::vec3 collisionPoint);

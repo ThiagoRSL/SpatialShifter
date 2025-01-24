@@ -35,10 +35,12 @@ void CollisionManager::VerifyCollisions()
 		//Para verificar uma possível colisão e depois calculos mais específicos.
 		//Podendo verificar a um nivel hierarquico por exemplo, utilizando uma bounding-box.
 		//O for abaixo então só verificaria objetos que de fato podem estar colidindo entre si no momento.
+
+
+
 		nearColliders.clear();
-
-
 		nearColliders = CollisionCheck(i);
+
 		for (int j = 0; j < nearColliders.size(); j++)
 		{
 

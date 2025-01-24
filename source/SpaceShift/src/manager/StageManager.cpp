@@ -13,7 +13,7 @@ StageManager::StageManager()
 void StageManager::UpdateStage(double t)
 {
 	int deltaDifficulty = KillCounter / 2;
-	for (int i = Enemies.size(); i < (10 + deltaDifficulty); i++)
+	for (int i = EnemyCounter; i < (10 + deltaDifficulty); i++)
 	{
 		SpawnEnemy();
 	}
@@ -27,6 +27,7 @@ void StageManager::UpdateStage(double t)
 
 void StageManager::SpawnEnemy()
 {
+	EnemyCounter++;
 	float r1 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
 	float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
 	vec3 proposedPosition = vec3((r2 - 50.0f), (r1 - 50.0f), 0.0f);
@@ -81,11 +82,12 @@ void StageManager::ShipDestroyed(Ship* ship)
 	{
 		for (auto it = Enemies.begin(); it != Enemies.end(); ++it) {
 			if (*it == ship) {
-				Enemies.erase(it); 
+				EnemyCounter--;
+				/*Enemies.erase(it);*/
 				break;  // Exit the loop after erasing
 			}
 		}
-	}	
+	}
 
 	//TODO:: CLEAR MEMORY, DEAD SHIPS DO STILL KEEP MODEL BODIES.
 }

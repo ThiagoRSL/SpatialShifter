@@ -13,7 +13,7 @@ RenderManager::RenderManager()
 void RenderManager::RenderElements()
 {
 	vec3 CameraDistance = CameraManagerInstance->WorldPivot();
-	//#pragma omp parallel for 
+	#pragma omp parallel for 
 	for (int i = 0; i < RenderList.size(); i++)
 	{
 		float distance = MathUtils::Norm(CameraDistance - RenderList.at(i)->GetPosition());

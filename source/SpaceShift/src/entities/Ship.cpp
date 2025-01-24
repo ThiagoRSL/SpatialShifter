@@ -117,7 +117,7 @@ void Ship::ShotAt(vec3 shotTarget)
 	f.SetAsVec(direction * 125000.0f);
 
 
-	Projectile* p = new Projectile(this, 0.4f, 25.0f, 10.0f, DamageType::BALISTIC_DAMAGE, 5.0f, this->position,
+	Projectile* p = new Projectile(this, 0.4f, 15.0f, 10.0f, DamageType::BALISTIC_DAMAGE, 5.0f, this->position,
 		this->linearSpeed, f, ProjectileTypeID::BALLISTIC_PROJECTILE_ID, vec3(0.0f, 0.0f, angle), this->faction);
 
 
@@ -237,26 +237,31 @@ void Ship::CalculateShipInertia(const std::vector<glm::vec3>& vertexes)
 	this->SetInertia(inertia);
 }
 
-void Ship::ReceiveDamage(float damage, DamageType damageType)
+DamageCallback Ship::ReceiveDamage(float damage, DamageType damageType)
 {
+	if (this->IsDestroyed()) return DamageCallback::ALREADY_DESTROYED;
+
 	switch (damageType)
 	{
-	case DamageType::COLLISION_DAMAGE:
-		this->hitPoints -= damage;
-		printf("\n Dano recebido: %f", damage);
-		break;
-	case DamageType::VOID_DAMAGE:
-		this->hitPoints -= damage;
-		break;
-	case DamageType::BALISTIC_DAMAGE:
-		this->hitPoints -= damage;
-		break;
+		case DamageType::COLLISION_DAMAGE:
+			this->hitPoints -= damage;
+			printf("\n Dano recebido: %f", damage);
+			break;
+		case DamageType::VOID_DAMAGE:
+			this->hitPoints -= damage;
+			break;
+		case DamageType::BALISTIC_DAMAGE:
+			this->hitPoints -= damage;
+			break;
 	}
 
 	if (hitPoints <= 0.0f)
 	{
 		Destroy();
+		return DamageCallback::DESTROYED;
 	}
+
+	return DamageCallback::RECEIVED;
 }
 
 void Ship::Destroy()
@@ -271,8 +276,7 @@ void Ship::Destroy()
 
 	CollisionManager::GetInstance()->RemoveCollider(&this->Collider);
 	StageManager::GetInstance()->ShipDestroyed(this);
-
-	
+	Entity::Destroy();
 }
 
 
