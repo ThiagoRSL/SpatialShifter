@@ -14,7 +14,6 @@ void DevouringSingularityModel::Init()
 {
 	/// matrices setup
 	modelMatrix = mat4(); // identity
-	modelViewProjectionMatrix = CameraManager::GetInstance()->MVP();
 
 	SkillShader = ShaderManager::GetInstance()->GetShader(SkillID::DEVOURING_SINGULARITY);
 	if (SkillShader == nullptr)

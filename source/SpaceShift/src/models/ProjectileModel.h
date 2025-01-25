@@ -52,7 +52,6 @@ public:
 	void SetProjectileController(Projectile* Projectile);
 	void UpdateLight(double deltaTime);
 
-	mat4 GetMVP() { return this->modelViewProjectionMatrix; }
 	mat4 GetRotationMatrix() { return this->rotationMatrix; }
 	mat4 GetScaleMatrix() { return this->scaleMatrix; }
 	std::vector< vec3 > GetVertexes() { return this->Vertexes; }

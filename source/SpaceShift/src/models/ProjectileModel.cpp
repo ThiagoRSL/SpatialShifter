@@ -40,7 +40,6 @@ void ProjectileModel::Init()
 	int projectileTypeIdInt = static_cast<int>(ProjectileType);
 	/// matrices setup
 	modelMatrix = mat4(); // identity
-	modelViewProjectionMatrix = CameraManager::GetInstance()->MVP();
 
 	ProjectileShader = ShaderManager::GetInstance()->GetShader(this->Controller->GetProjectileType());
 	if (ProjectileShader == nullptr)
@@ -93,8 +92,6 @@ void ProjectileModel::Update(double deltaTime)
 	scaleMatrix = Controller->GetScaleMatrix();
 
 	CameraManager* cam = CameraManager::GetInstance();
-
-	modelViewProjectionMatrix = cam->ProjectionMatrix() * cam->ViewMatrix();
 
 	this->GenerateParticles();
 }

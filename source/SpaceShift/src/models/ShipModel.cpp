@@ -49,7 +49,6 @@ void ShipModel::Init()
 	int shipTypeIdInt = static_cast<int>(shipType);
 	/// matrices setup
 	modelMatrix = mat4(); // identity
-	modelViewProjectionMatrix = CameraManager::GetInstance()->MVP();
 
 	ShipModelShader = ShaderManager::GetInstance()->GetShader(shipTypeIdInt, ShaderType::SHADER_TYPE_SHIP);
 	if (ShipModelShader == nullptr)
@@ -111,7 +110,7 @@ void ShipModel::Render()
 	ParticleShader->setUniform(string("TimeNow"), UpdateManager::GetInstance()->GetTimeCounter());
 
 
-	ShipModelShader->setUniform(string("MVP"), modelViewProjectionMatrix); //ModelViewProjection
+	ShipModelShader->setUniform(string("MVP"), CameraManager::GetInstance()->RefMVP()); //ModelViewProjection
 	ShipModelShader->setUniform(string("Position"), position);
 	ShipModelShader->setUniform(string("RotationMatrix"), rotationMatrix);
 	ShipModelShader->setUniform(string("ScaleMatrix"), scaleMatrix);
@@ -185,8 +184,6 @@ void ShipModel::Update(double deltaTime)
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
 
 	CameraManager* cam = CameraManager::GetInstance();
-
-	modelViewProjectionMatrix = cam->ProjectionMatrix() * cam->ViewMatrix();
 }
 
 void ShipModel::GenerateBuffers()

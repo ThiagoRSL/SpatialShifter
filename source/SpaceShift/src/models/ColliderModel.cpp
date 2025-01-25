@@ -42,7 +42,6 @@ void ColliderModel::Init()
 {
 	/// matrices setup
 	modelMatrix = mat4(); // identity
-	modelViewProjectionMatrix = CameraManager::GetInstance()->MVP();
 
 	glGenVertexArrays(1, &VaoID);
 	glBindVertexArray(VaoID);
@@ -68,7 +67,7 @@ void ColliderModel::Init()
 
 void ColliderModel::Render()
 {
-	ColliderShader->setUniform(string("MVP"), modelViewProjectionMatrix); //ModelViewProjection
+	ColliderShader->setUniform(string("MVP"), CameraManager::GetInstance()->RefMVP()); //ModelViewProjection
 	ColliderShader->setUniform(string("Position"), position);
 	ColliderShader->setUniform(string("RotationMatrix"), rotationMatrix);
 	ColliderShader->setUniform(string("ScaleMatrix"), scaleMatrix);
@@ -107,10 +106,6 @@ void ColliderModel::Update(double deltaTime)
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.z), vec3(0.0f, 0.0f, 1.0f));
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.y), vec3(0.0f, 1.0f, 0.0f));
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
-
-	CameraManager* cam = CameraManager::GetInstance();
-
-	modelViewProjectionMatrix = cam->ProjectionMatrix() * cam->ViewMatrix();
 
 
 	//this->GenerateParticles();

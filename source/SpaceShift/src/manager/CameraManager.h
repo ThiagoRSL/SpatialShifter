@@ -74,6 +74,8 @@ public:
 	mat4 ProjectionMatrix() { return projectionMatrix; }
 	mat4 MVP() { return mvp; }
 	vec3 Perspective() { return perspective; }
+	
+	const mat4& RefMVP() const { return mvp; }
 	vec3 WorldPivot() { return vec3(*targetPoint); }
 	float GetSize() { return size; }
 	float GetSizeRelative() { return size / sizeMaxLimit; }

@@ -100,8 +100,7 @@ public:
 
 
 public:
-	// Getters
-	mat4 GetMVP() { return this->Model.GetMVP(); }
+
 	mat4 GetRotationMatrix() { return this->Model.GetRotationMatrix(); }
 	mat4 GetScaleMatrix() { return this->Model.GetScaleMatrix(); }
 	vec4 GetColliderDebugColor() { return Collider.GetDebugColor(); }

@@ -28,7 +28,6 @@ protected:
 	glm::mat4 modelMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
-	glm::mat4 modelViewProjectionMatrix;
 	glm::mat4 modelViewMatrix;
 	glm::mat4 rotationMatrix;
 
@@ -38,6 +37,7 @@ protected:
 	vec3 direction;
 
 public:
+
 	RenderModel() { ; }
 
 	// mesh virtual functions
