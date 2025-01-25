@@ -111,7 +111,7 @@ public:
 	virtual mat4 GetRotationMatrix() { return mat4(); }
 	virtual mat4 GetScaleMatrix() { return mat4(); }
 
-	double GetSpeed() { return linearSpeed.length(); }	
+	double GetSpeed() {	return std::sqrt(linearSpeed.x * linearSpeed.x + linearSpeed.y * linearSpeed.y + linearSpeed.z * linearSpeed.z); }
 	double GetInertia() { return this->inertiaMoment; }
 	double GetMass() { return this->mass; }
 	vec3& GetLinearSpeed() { return this->linearSpeed; }

@@ -97,7 +97,7 @@ public:
 	std::vector<InterfaceElement*>* GetChildren();
 	vec2 GetPosition();
 
-	void SetTexture(const char* texturePath);
+	void SetTexture(std::string NewTexture);
 	void GenerateBuffers();
 	void UpdateComponents();
 

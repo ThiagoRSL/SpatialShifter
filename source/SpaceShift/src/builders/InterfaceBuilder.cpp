@@ -14,7 +14,7 @@ void InterfaceBuilder::BuildInventory()
 	InventoryBody->SetPosition(vec2(200.0f, 1000.0f));
 	InventoryBody->SetHeight(800.0f);
 	InventoryBody->SetWidth(600.0f);
-	InventoryBody->SetTexture(GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH.c_str());
+	InventoryBody->SetTexture(GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH);
 	//InventoryBody->AddText(std::string("Inventario lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll"));
 
 	// Adiciona os Slots
@@ -38,7 +38,7 @@ void InterfaceBuilder::BuildInventory()
 			slot->SetHeight(quickSlotSize);
 			slot->SetWidth(quickSlotSize);
 			//slot->SetElementIndex(quickSlotIndexes.at(i));
-			slot->SetTexture(GlobalPaths::INVENTORY_EMPTY_SLOT_IMAGE_PATH.c_str());
+			slot->SetTexture(GlobalPaths::INVENTORY_EMPTY_SLOT_IMAGE_PATH);
 			slot->SetPlacement(ElementPlacement::RELATIVE_PLACEMENT);
 			
 			InventoryBody->AddInterfaceComponent(slot);
@@ -102,7 +102,7 @@ void InterfaceBuilder::BuildQuickBar()
 		qs->SetHeight(64.0f);
 		qs->SetWidth(64.0f);
 		qs->SetElementIndex(quickSlotIndexes.at(i));
-		qs->SetTexture(GlobalPaths::HOTBAR_EMPTY_SLOT_IMAGE_PATH.c_str());
+		qs->SetTexture(GlobalPaths::HOTBAR_EMPTY_SLOT_IMAGE_PATH);
 		
 		QuickBar->AddInterfaceComponent(qs);
 	}

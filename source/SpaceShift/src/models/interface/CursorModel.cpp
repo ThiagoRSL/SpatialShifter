@@ -49,9 +49,8 @@ void CursorModel::Init()
 	// TODO: Melhor uso das unidades de Textura
 	glActiveTexture(GL_TEXTURE0);
 
-	TextureIndex = TextureManager::Inst()->ReserveIndex();
-	if (!texManager->LoadTexture(GlobalPaths::CURSOR_IMAGE_PATH.c_str(), TextureIndex))
-		cout << "Failed to load texture." << endl;
+	TextureIndex = TextureManager::Inst()->GetTexture(GlobalPaths::CURSOR_IMAGE_PATH);
+	if (TextureIndex == -1) printf("\n Nao foi carregada a textura.");
 
 
 	glGenVertexArrays(1, &VaoID);

@@ -13,6 +13,7 @@
 #include "GL/glew.h"
 #include "Freeimage/FreeImage.h"
 #include <map>
+#include <string>
 #include <glm\glm.hpp>
 
 class TextureManager
@@ -26,6 +27,9 @@ public:
 
 	//load a texture an make it the current texture
 	//if texID is already in use, it will be unloaded and replaced with this texture
+
+	unsigned int GetTexture(std::string TexturePath);
+
 	bool LoadTexture(const char* filename,	//where to load the file from
 		const unsigned int texID,			//arbitrary id you will reference the texture by
 											//does not have to be generated with glGenTextures

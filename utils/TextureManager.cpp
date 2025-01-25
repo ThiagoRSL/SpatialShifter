@@ -125,6 +125,18 @@ void TextureManager::printImageColorType(FREE_IMAGE_COLOR_TYPE type) {
 	cout << endl;
 }
 
+unsigned int TextureManager::GetTexture(std::string TexturePath)
+{
+	unsigned int ParticleTextureIndex = TextureManager::Inst()->ReserveIndex();
+	if (!TextureManager::Inst()->LoadTexture(TexturePath.c_str(), ParticleTextureIndex))
+	{
+		cout << "Failed to load texture." << endl;
+		return -1; //TODO: Unsigned can't be -1
+	}
+
+	return ParticleTextureIndex;
+}
+
 bool TextureManager::LoadTexture(const char* filename, const unsigned int texID, GLenum image_format, GLint internal_format, GLint level, GLint border)
 {
 	// Determine the format of the image.

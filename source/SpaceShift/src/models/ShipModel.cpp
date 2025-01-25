@@ -25,8 +25,8 @@ ShipModel::ShipModel(Ship* ShipController)
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
 	scale = vec3(1.0f);
-	MaxParticlesNumber = 500;
-	MaxTimeToLive = 0.35f;
+	MaxParticlesNumber = 800;
+	MaxTimeToLive = 0.5f;
 	NextParticleIndex = 0;
 	ParticleNumber = 0;
 
@@ -51,7 +51,6 @@ void ShipModel::Init()
 	modelMatrix = mat4(); // identity
 	modelViewProjectionMatrix = CameraManager::GetInstance()->MVP();
 
-
 	ShipModelShader = ShaderManager::GetInstance()->GetShader(shipTypeIdInt, ShaderType::SHADER_TYPE_SHIP);
 	if (ShipModelShader == nullptr)
 	{
@@ -74,10 +73,7 @@ void ShipModel::Init()
 	printf("\n COMPILANDO SHADERS (1).");
 	ParticleUpdateShader->Compile("shader/particle/particles.comp");
 
-
-	ParticleTextureIndex = TextureManager::Inst()->ReserveIndex();
-	if (!TextureManager::Inst()->LoadTexture(GlobalPaths::PARTICLE_ENGINE_PATH.c_str(), ParticleTextureIndex))
-		cout << "Failed to load texture." << endl;
+	ParticleTextureIndex = TextureManager::Inst()->GetTexture(GlobalPaths::PARTICLE_ENGINE_PATH);
 
 	
 	bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetShipModelPath(shipType), Vertexes, Uvs, Normals, Indexes);
@@ -277,7 +273,8 @@ void ShipModel::GenerateParticles()
 	mat4 rotationMatrix = Controller->GetRotationMatrix();
 	vec4* ParticleColor2 = new vec4[MaxParticlesNumber];
 
-	for (int i = 0; i < (20 + (int)(thrustProportion * 30.0f)); i++) //
+	int numberNewParticles = (20 + (int)(thrustProportion * 30.0f));
+	for (int i = 0; i < numberNewParticles; i++) //
 	{
 		if (NextParticleIndex == MaxParticlesNumber) NextParticleIndex = 0;
 
@@ -310,6 +307,8 @@ void ShipModel::GenerateParticles()
 
 	glBindVertexArray(ParticlesVaoID);
 	
+
+
 	// TODO: Assume que nunca o numero de particulas vai estorar duas vezes o limite
 	if (oldSize + createdParticles < MaxParticlesNumber)
 	{

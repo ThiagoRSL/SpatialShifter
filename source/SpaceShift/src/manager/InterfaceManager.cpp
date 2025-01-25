@@ -321,18 +321,21 @@ void InterfaceElement::GenerateBuffers()
 	glBindVertexArray(0);
 }
 
-void InterfaceElement::SetTexture(const char* texturePath)
+void InterfaceElement::SetTexture(std::string NewTexture)
 {
+
+
 	//if (HasTexture)
 	//	TextureManager::Inst()->UnloadTexture(BackgroundTextureID);
-	if (!HasTexture || HasTexture) //else
+	if (!HasTexture) //else
 	{
-		TextureIndex = TextureManager::Inst()->ReserveIndex();
 		GenerateBuffers();
 	}
 
-
-	if (TextureManager::Inst()->LoadTexture(texturePath, TextureIndex))
+	TextureIndex = -1;
+	TextureIndex = TextureManager::Inst()->GetTexture(NewTexture.c_str());
+	
+	if (TextureIndex != -1)
 	{
 		HasTexture = true;
 	}
@@ -352,7 +355,7 @@ void InterfaceElement::Interact(InterfaceInteraction interaction)
 			break;
 		case InterfaceInteraction::MOUSE_HOVER:
 			printf("MOUSE HOVER INTERFACE ELEMENT INTERACTION");
-			SetTexture(GlobalPaths::PARTICLE_ENGINE_PATH.c_str());
+			SetTexture(GlobalPaths::PARTICLE_ENGINE_PATH);
 			break;
 		case InterfaceInteraction::MOUSE_LEAVE:
 			printf("MOUSE LEAVE INTERFACE ELEMENT INTERACTION");

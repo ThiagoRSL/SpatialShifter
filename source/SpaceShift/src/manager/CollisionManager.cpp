@@ -26,7 +26,7 @@ void CollisionManager::VerifyCollisions()
 		}
 	}
 
-
+	//#pragma omp parallel for 
 	for (int i = 0; i < ColliderList.size(); i++)
 	{
 		//TODO: MELHORAR SELEÇÂO DE COLISÂO
@@ -36,7 +36,9 @@ void CollisionManager::VerifyCollisions()
 		//Podendo verificar a um nivel hierarquico por exemplo, utilizando uma bounding-box.
 		//O for abaixo então só verificaria objetos que de fato podem estar colidindo entre si no momento.
 
-
+		// Linear Speed computar a verificação de colisão de maneira PREDITIVA, não de maneira reparativa como está sendo agora.
+		// Assim é possível ajustar o número de checagens através da velocidade do objeto
+		// ColliderList.at(i)->GetEntity()->GetSpeed(); 
 
 		nearColliders.clear();
 		nearColliders = CollisionCheck(i);
