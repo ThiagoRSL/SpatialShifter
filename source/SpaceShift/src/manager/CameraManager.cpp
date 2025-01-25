@@ -41,11 +41,11 @@ void CameraManager::UpdateCameraSettings()
 	glfwGetFramebufferSize(this->window, &w, &h);
 
 	// Fator de zoom
-	float zoomFactor = 1.0f + (size * 0.01f); // Ajuste o valor conforme necessário
+	ZoomFactor = 1.0f + (size * 0.01f); // Ajuste o valor conforme necessário
 
 	// Ajusta o nearPlane e farPlane com base no zoom
-	nearPlane = 0.1f * zoomFactor;   // Não deixe o nearPlane muito pequeno
-	farPlane = 100.0f * zoomFactor;  // Ajuste o farPlane para um valor adequado
+	nearPlane = 0.1f * ZoomFactor;   // Não deixe o nearPlane muito pequeno
+	farPlane = 100.0f * ZoomFactor;  // Ajuste o farPlane para um valor adequado
 
 
 	if (GlobalVars::PERSPECTIVE)
@@ -56,8 +56,8 @@ void CameraManager::UpdateCameraSettings()
 	{
 		//projectionMatrix = glm::perspective(glm::radians(90.0f), (float)w / (float)h, 0.1f, 100.0f);
 		float aspectRatio = static_cast<float>(w) / static_cast<float>(h);
-		projectionMatrix = glm::ortho(-size * aspectRatio * zoomFactor, size * aspectRatio * zoomFactor,
-			-size * zoomFactor, size * zoomFactor, nearPlane, farPlane);
+		projectionMatrix = glm::ortho(-size * aspectRatio * ZoomFactor, size * aspectRatio * ZoomFactor,
+			-size * ZoomFactor, size * ZoomFactor, nearPlane, farPlane);
 	}
 	this->mvp = mat4() * projectionMatrix * viewMatrix;
 }

@@ -4,7 +4,7 @@
 bool  GlobalVars::ALPHA_PHYSICS = true;
 bool GlobalVars::PERSPECTIVE = false;
 float GlobalVars::RENDER_DISTANCE = 500.0f;
-bool  GlobalVars::FULL_SCREEN = true;
+bool  GlobalVars::FULL_SCREEN = false;
 bool  GlobalVars::DEBUG_MODE = false;
 bool  GlobalVars::BRAIN_LESS = true;
 
@@ -25,8 +25,6 @@ std::string GlobalPaths::PARTICLE_ENGINE_PATH = std::string("..//source//SpaceSh
 glm::vec4 GlobalColors::DEVOURING_SINGULARITY_COLOR = glm::vec4(0.1012f, 0.0118f, 0.38f, 1.0f);
 
 
-// Interface - UI Elements
-
-
+// Interface - UI Elements 
 std::string GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH = std::string("..//source//SpaceShift//assets//UI//InventoryBackground.png");
 std::string GlobalPaths::INVENTORY_EMPTY_SLOT_IMAGE_PATH = std::string("../source/SpaceShift/assets/sprites//EmptySlot.png");

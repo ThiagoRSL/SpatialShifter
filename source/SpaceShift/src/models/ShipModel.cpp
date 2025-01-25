@@ -25,7 +25,7 @@ ShipModel::ShipModel(Ship* ShipController)
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
 	scale = vec3(1.0f);
-	MaxParticlesNumber = 800;
+	MaxParticlesNumber = 200;
 	MaxTimeToLive = 0.5f;
 	NextParticleIndex = 0;
 	ParticleNumber = 0;
@@ -151,7 +151,6 @@ void ShipModel::Render()
 	glBindVertexArray(0);
 	glUseProgram(0);
 
-	
 
 }
 
@@ -271,84 +270,84 @@ void ShipModel::GenerateParticles()
 	vec4* ParticleColor2 = new vec4[MaxParticlesNumber];
 
 	int numberNewParticles = (20 + (int)(thrustProportion * 30.0f));
-	for (int i = 0; i < numberNewParticles; i++) //
-	{
-		if (NextParticleIndex == MaxParticlesNumber) NextParticleIndex = 0;
-
-		ParticleIndex[NextParticleIndex] = NextParticleIndex;
-
+	for (int i = 0; i < numberNewParticles; i++) {
 		vec3 dirVec = vec3(rotationMatrix * vec4(MathUtils::RandomBetween(-0.75, 0.75), MathUtils::RandomBetween(-2.7f, -2.25f), 0.0f, 1.0f));
-
 		ParticlePosition[NextParticleIndex] = vec4(vec4(Controller->GetPosition() + dirVec, 1.0f));
 
 		vec3 speedDir = dirVec;
 		speedDir = speedDir / vec3(MathUtils::Norm(speedDir)) * (0.25f + (thrustProportion / 4.0f));
-
 		vec4 speed = vec4(speedDir + this->Controller->GetLinearSpeed() - vec3(rotationMatrix * (vec4(0.0f, (0.5f + thrustProportion * 25.0f) + MathUtils::RandomBetween(-2.0f, 2.0f), 0.f, 1.0f))), 1.0f);
-
 
 		float whiteness = MathUtils::RandomBetween(0.60f, 0.80f);
 		ParticleColor[NextParticleIndex] = vec4(MathUtils::RandomBetween(0.85f, 1.0f), MathUtils::RandomBetween(0.85f, 1.0f), whiteness, 1.0f);
 		ParticleColor2[NextParticleIndex] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
-
 		ParticleVelocity[NextParticleIndex] = speed;
-
 		ParticleTTL[NextParticleIndex] = MaxTimeToLive - MathUtils::RandomBetween(0.0f, 0.20f);
 
-		NextParticleIndex++;
+		// Atualiza o índice circular
+		NextParticleIndex = (NextParticleIndex + 1) % MaxParticlesNumber;
 		createdParticles++;
-		if(ParticleNumber < MaxParticlesNumber)	ParticleNumber++;
+		if (ParticleNumber < MaxParticlesNumber) ParticleNumber++;
 	}
 
 	if (createdParticles == 0) return;
 
 	glBindVertexArray(ParticlesVaoID);
-	
 
+	int particlesToUpload = createdParticles;
+	int overflow = (oldSize + createdParticles) - MaxParticlesNumber;
 
-	// TODO: Assume que nunca o numero de particulas vai estorar duas vezes o limite
-	if (oldSize + createdParticles < MaxParticlesNumber)
-	{
+	if (overflow > 0) {
+		// Evitar overflow de upload de partículas
+		particlesToUpload = createdParticles - overflow; 
+
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), createdParticles * sizeof(vec4), &ParticlePosition[oldSize]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticlePosition[oldSize]);
+
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), createdParticles * sizeof(vec4), &ParticleVelocity[oldSize]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticleVelocity[oldSize]);
+
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), createdParticles * sizeof(vec4), &ParticleColor[oldSize]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticleColor[oldSize]);
+
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(float), createdParticles * sizeof(float), &ParticleTTL[oldSize]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(float), particlesToUpload * sizeof(float), &ParticleTTL[oldSize]);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[4]);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, oldSize * sizeof(int), createdParticles * sizeof(int), &ParticleIndex[oldSize]);
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, oldSize * sizeof(int), particlesToUpload * sizeof(int), &ParticleIndex[oldSize]);
+
+		// Upload do overflow
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticlePosition[0]);
+
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticleVelocity[0]);
+
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticleColor2[0]);
+
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(float), &ParticleTTL[0]);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[4]);
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, overflow * sizeof(int), &ParticleIndex[0]);
 	}
-	else
-	{
-		printf("\nEStourei kkk!");
-		int overflow = (oldSize + createdParticles) - MaxParticlesNumber;
-
-		//Cuida das substituições antes de reiniciar o limite.
+	else {
+		// Cenário onde não ocorre overflow
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), (createdParticles - overflow) * sizeof(vec4), &ParticlePosition[oldSize]);
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), (createdParticles - overflow) * sizeof(vec4), &ParticleVelocity[oldSize]);
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), (createdParticles - overflow) * sizeof(vec4), &ParticleColor[oldSize]);
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
-		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(float), (createdParticles - overflow) * sizeof(float), &ParticleTTL[oldSize]);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[3]);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, oldSize * sizeof(int), (createdParticles - overflow) * sizeof(int), &ParticleIndex[oldSize]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticlePosition[oldSize]);
 
-		//Cuida das substituições após o reinicio.
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticlePosition[0]);
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticleVelocity[0]);
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(vec4), &ParticleColor2[0]);
-		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, (overflow) * sizeof(float), &ParticleTTL[0]);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[3]);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, (overflow) * sizeof(int), &ParticleIndex[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticleVelocity[oldSize]);
 
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(vec4), particlesToUpload * sizeof(vec4), &ParticleColor[oldSize]);
+
+		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
+		glBufferSubData(GL_ARRAY_BUFFER, oldSize * sizeof(float), particlesToUpload * sizeof(float), &ParticleTTL[oldSize]);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[4]);
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, oldSize * sizeof(int), particlesToUpload * sizeof(int), &ParticleIndex[oldSize]);
 	}
 
 	glBindVertexArray(0);

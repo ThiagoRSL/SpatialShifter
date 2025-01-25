@@ -73,6 +73,7 @@ void ProjectileModel::Render()
 	ProjectileShader->setUniform(string("Color"), vec4(1.0f, 0.0f, 1.0f, 1.0f));
 	ProjectileShader->setUniform(string("RotationMatrix"), rotationMatrix);
 	ProjectileShader->setUniform(string("ScaleMatrix"), scaleMatrix);
+	ProjectileShader->setUniform(string("ZoomFactor"), CameraManager::GetInstance()->GetZoomFactor() * 1);
 	ProjectileShader->setUniform(string("DestructionAnimationParam"), (float)MathUtils::AnimationSmoothTime(this->Controller->GetDestroyedTime() / 1.5));
 	ProjectileShader->setUniform(string("Destroyed"), this->Controller->IsDestroyed());
 

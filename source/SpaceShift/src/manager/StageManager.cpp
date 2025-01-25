@@ -77,7 +77,6 @@ void StageManager::SpawnBoss()
 
 void StageManager::ShipDestroyed(Ship* ship)
 {
-
 	if (ship->GetFaction() != Faction::PLAYER)
 	{
 		for (auto it = Enemies.begin(); it != Enemies.end(); ++it) {

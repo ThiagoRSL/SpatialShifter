@@ -45,6 +45,7 @@ private:
 	float yaw = 0.0f;
 	float row = 0.0f;
 
+	float ZoomFactor;
 	float size, sizeMinLimit, sizeMaxLimit;
 	float nearPlane;
 	float farPlane;
@@ -79,6 +80,7 @@ public:
 	vec3 WorldPivot() { return vec3(*targetPoint); }
 	float GetSize() { return size; }
 	float GetSizeRelative() { return size / sizeMaxLimit; }
+	float GetZoomFactor() { return ZoomFactor;  }
 
 	void AdjustPitch(float val)
 	{ 
