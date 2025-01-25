@@ -24,7 +24,6 @@ void DevouringSingularityModel::Init()
 		printf("\n COMPILANDO SHADERS (1).");
 		SkillShader->Compile("shader/skills/singularity.vert", "shader/skills/singularity.frag"); 
 		ShaderManager::GetInstance()->AddShader(SkillID::DEVOURING_SINGULARITY, SkillShader);
-		SkillShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	}
 	
 	bool res = ObjectLoader::LoadObject(GlobalPaths::DEVOURING_SINGULARITY_MODEL_PATH.c_str(), Vertexes, Uvs, Normals, Indexes);
@@ -46,6 +45,7 @@ void DevouringSingularityModel::Init()
 void DevouringSingularityModel::Render()
 {
 	this->Position = Skill->GetAttractingCenter() - CameraManager::GetInstance()->WorldPivot();
+	SkillShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	SkillShader->setUniform(string("Time"), (float) this->Skill->GetTimeToLive());
 	SkillShader->setUniform(string("Position"), this->Position);
 

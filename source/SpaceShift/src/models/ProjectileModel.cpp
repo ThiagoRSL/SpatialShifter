@@ -49,7 +49,6 @@ void ProjectileModel::Init()
 		printf("\n COMPILANDO SHADERS (1).");
 		ProjectileShader->Compile("shader/projectile/ballistic.vert", "shader/projectile/ballistic.geom", "shader/projectile/ballistic.frag"); //"shader/ship/ship.geom",
 		ShaderManager::GetInstance()->AddShader(this->Controller->GetProjectileType(), ProjectileShader);
-		ProjectileShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	}
 
 	bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetProjectileModelPath(ProjectileType), Vertexes, Uvs, Normals, Indexes);
@@ -70,6 +69,7 @@ void ProjectileModel::Init()
 
 void ProjectileModel::Render()
 {
+	ProjectileShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	ProjectileShader->setUniform(string("Position"), position - CameraManager::GetInstance()->WorldPivot());
 	ProjectileShader->setUniform(string("Color"), vec4(1.0f, 0.0f, 1.0f, 1.0f));
 	ProjectileShader->setUniform(string("RotationMatrix"), rotationMatrix);

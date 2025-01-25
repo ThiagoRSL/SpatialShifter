@@ -16,7 +16,6 @@ out vec4 vColor;
 
 void main()
 {
-
 	gl_Position = MVP * (RotationMatrix * (ScaleMatrix * vec4(Vertex.x, Vertex.y, Vertex.z, 1.0)) + vec4(Position.xyz, 0.0));
 	//gl_Position = MVP * (vec4(Vertex.x, Vertex.y, Vertex.z, 1.0) + vec4(Position.xyz, 1.0));
 	vUv = Uv;
