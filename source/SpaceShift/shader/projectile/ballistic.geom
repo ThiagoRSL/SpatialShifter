@@ -23,7 +23,7 @@ void main()
 
         if (Destroyed) 
         {
-            gl_Position = gl_in[i].gl_Position - vec4((vec3(0.2f, 0.2f, 0.0f) + normal) * DestructionAnimationParam, 0.0);
+            gl_Position = gl_in[i].gl_Position - vec4(normalize(vec3(normal.x, normal.y, 0.0f)) * DestructionAnimationParam, 0.0);
         } 
         else 
         {
