@@ -203,11 +203,6 @@ void Ship::UpdateDestroyedTime(double deltaTime)
 	this->destroyedTime += deltaTime;	
 }
 
-void Ship::SetAutonomous(AutonomyShipModule* ASM)
-{ 
-	this->isAutonomous = true; 
-	this->Autonomy = ASM;
-}
 
 void Ship::CollideWith(Entity& otherEntity, glm::vec3 collisionPoint)
 {
@@ -290,4 +285,16 @@ void Ship::CollideWithShip(Ship& otherShip, glm::vec3 collisionPoint)
 
 	//Dano é calculado dentro da colisão e repassado para a classe nave.
 	SpacePhysics::EntityCollision(*this, otherShip, collisionPoint, UpdateManager::GetInstance()->GetLastDeltaTime());
+}
+
+void Ship::SetAutonomy(AutonomyShipModule* ASM)
+{
+	this->isAutonomous = false;
+	this->Autonomy = ASM;
+}
+
+void Ship::SetAutonomous(bool value)
+{
+	if(this->Autonomy != NULL)
+		this->isAutonomous = value;
 }

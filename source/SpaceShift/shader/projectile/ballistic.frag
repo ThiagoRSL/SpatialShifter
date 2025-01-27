@@ -2,6 +2,7 @@
 #version 430
 
 uniform vec4 Color;
+uniform float ZoomFactor;
 
 in vec2 gUv;
 in vec3 gNormal;

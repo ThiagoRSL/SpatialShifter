@@ -97,17 +97,49 @@ void InputManager::KeyboardInput(int key, int scancode, int action, int mods)
 		}
 		//else if (action == GLFW_RELEASE)				
 		break;
-	case (GLFW_KEY_LEFT_SHIFT):
+	case (GLFW_KEY_W):
 		if (action == GLFW_PRESS)
 			PlayerShip->SetThrustMode(1.0f);
 		else if (action == GLFW_RELEASE)
 			PlayerShip->SetThrustMode(0.0f);
 		break;
-	case (GLFW_KEY_LEFT_CONTROL):
+	case (GLFW_KEY_S):
 		if (action == GLFW_PRESS)
 			PlayerShip->SetThrustMode(-1.0f);
 		else if (action == GLFW_RELEASE)
 			PlayerShip->SetThrustMode(0.0f);
+		break;
+	case (GLFW_KEY_LEFT_SHIFT):
+		if (action == GLFW_PRESS)
+			LeftShiftPressed = true;
+		else if (action == GLFW_RELEASE)
+			LeftShiftPressed = false;
+		break;
+	case (GLFW_KEY_LEFT_CONTROL):
+		if (action == GLFW_PRESS)
+			LeftCtrPressed = true;
+		else if (action == GLFW_RELEASE)
+			LeftCtrPressed = false;
+		break;
+	case (GLFW_KEY_LEFT_ALT):
+		if (action == GLFW_PRESS)
+		{
+			AutonomyShipModule* PlayerAutonomy = PlayerShip->GetAutonomy();
+			if (PlayerAutonomy != NULL)
+			{
+				PlayerShip->SetAutonomous(true);
+				PlayerAutonomy->SetBehaviour(AutonomyBehavior::STABILIZE);
+			}
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			AutonomyShipModule* PlayerAutonomy = PlayerShip->GetAutonomy();
+			if (PlayerAutonomy != NULL)
+			{
+				PlayerShip->SetAutonomous(false);
+				PlayerAutonomy->SetBehaviour(AutonomyBehavior::NONE);
+			}
+		}
 		break;
 	}
 }
@@ -115,22 +147,25 @@ void InputManager::ProcessMouse(double deltaTime)
 {
 
 
-	if (glfwGetKeyOnce(window, GLFW_KEY_SPACE))
-	{
-		vec3 worldPivot = CameraManager::GetInstance()->WorldPivot();
-		//Aqui tá errado, as coordenadas não representam.
-		vec3 shotTarget = CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y, CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
-		shotTarget.x += worldPivot.x;
-		shotTarget.y += worldPivot.y;
-
-		printf("\n\nMouse (%f, %f)| Debugado (%f, %f)", mousePosition.x, mousePosition.y, shotTarget.x, shotTarget.y);
-
-		DebugEnemy->SetPosition(shotTarget);
-		//DebugEnemy->SetLinearSpeed(vec3(10.0f, 0.0f, 0.0f));
-	}
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
+		if (LeftCtrPressed)
+		{
+			vec3 shotTarget = CameraManager::GetInstance()->WorldPivot() +
+				CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
+					CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
+
+			AutonomyShipModule *Autonomy = DebugEnemy->GetAutonomy();
+			if (Autonomy != NULL)
+			{
+				SeekTask* t = new SeekTask(shotTarget);
+				Autonomy->AddTaskEnd(t);
+			}
+
+			return;
+		}
+
 		if (!lastPressed)
 		{
 			lastPressed = true;

@@ -10,6 +10,7 @@
 
 #include "GLUtils.h"
 
+#include "../Autonomy/Task/Task.h"
 #include "../Utils/MathUtils.h"
 #include "../Utils/CoordinateTranslateUtils.h"
 #include "../manager/TextureManager.h"
@@ -38,7 +39,11 @@ private:
 
 	Ship* DebugEnemy;
 	Ship* PlayerShip;
-
+	
+	//Melhorar teclas de controle
+	bool LeftShiftPressed = false;
+	bool LeftCtrPressed = false;
+	
 	InputManager();
 	InputManager(GLFWwindow* window, int size);
 	void VerifyMouseCollision();

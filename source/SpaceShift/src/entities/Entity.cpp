@@ -89,6 +89,16 @@ void Entity::UpdatePosition(double t)
 {
 	position += linearSpeed * vec3(t);
 	rotation += angularSpeed * vec3(t);
+	
+	// Normalizando para o intervalo [0, 360)
+	rotation.x = fmod(rotation.x, 360.0f);
+	rotation.y = fmod(rotation.y, 360.0f);
+	rotation.z = fmod(rotation.z, 360.0f);
+
+	// Garantir que o valor de rotação seja sempre positivo
+	if (rotation.x < 0) rotation.x += 360.0f;
+	if (rotation.y < 0) rotation.y += 360.0f;
+	if (rotation.z < 0) rotation.z += 360.0f;
 }
 
 

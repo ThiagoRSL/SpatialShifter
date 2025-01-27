@@ -4,6 +4,7 @@ uniform vec3 Position;
 uniform mat4 RotationMatrix;
 uniform mat4 ScaleMatrix;
 uniform mat4 MVP;
+uniform float ZoomFactor;
 
 layout(location = 0) in vec3 Vertex;	// Vertex
 layout(location = 1) in vec2 Uv;		// UV

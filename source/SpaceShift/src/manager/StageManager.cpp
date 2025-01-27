@@ -13,7 +13,7 @@ StageManager::StageManager()
 void StageManager::UpdateStage(double t)
 {
 	int deltaDifficulty = KillCounter / 2;
-	for (int i = EnemyCounter; i < (10 + deltaDifficulty); i++)
+	for (int i = EnemyCounter; i < (3 + deltaDifficulty); i++)
 	{
 		SpawnEnemy();
 	}
@@ -49,10 +49,13 @@ void StageManager::SpawnEnemy()
 	tempEnemyShip->SetHitPoints(20.0f);
 	tempEnemyShip->SetCollidingRaidius(15.f);
 	tempEnemyShip->SetFaction(Faction::PIRATES);
-	tempEnemyShip->SetThrustIntensityMax(200000.0f);
+	tempEnemyShip->SetThrustIntensityMax(20000.0f);
 	tempEnemyShip->Init();
 	if (!GlobalVars::BRAIN_LESS)
-		tempEnemyShip->SetAutonomous(new AutonomyShipModule(tempEnemyShip, 100.f, PlayerShip->GetPositionRef()));
+	{
+		tempEnemyShip->SetAutonomy(new AutonomyShipModule(tempEnemyShip, 500.f, PlayerShip->GetPositionRef()));
+		tempEnemyShip->SetAutonomous(true);
+	}
 	//tempEnemyShip->SetAngularSpeed(tempEnemyShip->GetPosition() + vec3(0.0f, 0.0f, 10.0f));
 	Enemies.push_back(tempEnemyShip);
 }

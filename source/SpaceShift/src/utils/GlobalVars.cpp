@@ -4,9 +4,9 @@
 bool  GlobalVars::ALPHA_PHYSICS = true;
 bool GlobalVars::PERSPECTIVE = false;
 float GlobalVars::RENDER_DISTANCE = 500.0f;
-bool  GlobalVars::FULL_SCREEN = false;
+bool  GlobalVars::FULL_SCREEN = true;
 bool  GlobalVars::DEBUG_MODE = false;
-bool  GlobalVars::BRAIN_LESS = true;
+bool  GlobalVars::BRAIN_LESS = false;
 
 // Collision
 bool GlobalVars::SAME_FACTION_COLLIDE = true;
@@ -23,7 +23,6 @@ std::string GlobalPaths::HOTBAR_EMPTY_SLOT_IMAGE_PATH = std::string("../source/S
 std::string GlobalPaths::PARTICLE_ENGINE_PATH = std::string("..//source//SpaceShift//assets//cursor.png");
 
 glm::vec4 GlobalColors::DEVOURING_SINGULARITY_COLOR = glm::vec4(0.1012f, 0.0118f, 0.38f, 1.0f);
-
 
 // Interface - UI Elements 
 std::string GlobalPaths::INVENTORY_BACKGROUND_IMAGE_PATH = std::string("..//source//SpaceShift//assets//UI//InventoryBackground.png");

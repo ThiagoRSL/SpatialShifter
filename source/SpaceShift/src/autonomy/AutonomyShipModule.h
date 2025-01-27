@@ -4,6 +4,7 @@
 
 #include <GLFW\glfw3.h>
 #include <vector>
+#include <deque>
 
 #include "../Entities/Entity.h"
 #include "../utils/GlobalVars.h"
@@ -15,42 +16,76 @@
 #define WINDOW_HEIGHT	1000.0
 
 class Ship;
+class Task;
 
-enum class ShipAutonomyState {
+enum class AutonomyTask {
+	STABILIZE,
+	ROTATE,
+};
+
+enum class AutonomyBehavior {
+	NONE,
+	STABILIZE,
 	WANDER,
 	SEARCH,
 	SEEK,
 	SLAM,
-	SHOOT,
+	COMBAT,
 };
 
 class AutonomyShipModule
 {
 
 private:
+	std::deque<Task*> Tasks;
+	Task* CurrentTask;
+	AutonomyBehavior CurrentBehavior;
+
 	bool starting;
 	Ship* Agent;
 	float awareRadius;
-	float shotCooldown;
-	ShipAutonomyState State;
+	float autonomyShotCooldown;
 
+	vec3 AimedSpeed;
 	vec3* EnemyPosition;
 	vec2 TargetPosition;
-	vec2 WanderToPosition;
+	vec2 SeekPosition;
+	float SpeedLimit = 40;
+	float StabilizedSpeedTolerance = 0.1f;
+
+
+
 
 public:
 	AutonomyShipModule() { ; }
 	AutonomyShipModule(Ship* agent, float aware_radius, vec3* enemyPosition);
 
-	// mesh virtual functions
 	void Init(ShipTypeId shipTypeId);
 	void Update(double t);
 	void Destroy();
+	void SeekTo(vec3 targetLocation);
 
-	void Wandering(double t);
-	void Shooting(double t);
-public:
+	bool Seeking(double t);
+	bool Wandering(double t);
+	bool Combating(double t);
 
+	bool RotateToAngle(float angle, float angleTolerance);
+	bool MovingTowards(float angle, float angleTolerance);
+	bool Stabilize();
+	bool IsStabilized();
+	void SetBehaviour(AutonomyBehavior behavior) { this->CurrentBehavior = behavior; }
+
+	void AddTaskStart(Task* t);
+	void AddTaskEnd(Task* t);
+	Task* PeekTask() { return Tasks.front(); }
+	
+	Task* FetchTask() {
+		if (Tasks.empty()) return nullptr;  
+
+		Task* task = Tasks.front();  
+		Tasks.pop_front();           
+		return task;                  
+	}
 };
 
 

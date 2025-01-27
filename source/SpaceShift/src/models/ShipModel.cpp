@@ -25,8 +25,8 @@ ShipModel::ShipModel(Ship* ShipController)
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
 	scale = vec3(1.0f);
-	MaxParticlesNumber = 200;
-	MaxTimeToLive = 0.5f;
+	MaxParticlesNumber = 250;
+	MaxTimeToLive = 0.3f;
 	NextParticleIndex = 0;
 	ParticleNumber = 0;
 
@@ -269,20 +269,27 @@ void ShipModel::GenerateParticles()
 	mat4 rotationMatrix = Controller->GetRotationMatrix();
 	vec4* ParticleColor2 = new vec4[MaxParticlesNumber];
 
-	int numberNewParticles = (20 + (int)(thrustProportion * 30.0f));
+	int numberNewParticles = (10 + (int)(thrustProportion * 40.0f));
 	for (int i = 0; i < numberNewParticles; i++) {
-		vec3 dirVec = vec3(rotationMatrix * vec4(MathUtils::RandomBetween(-0.75, 0.75), MathUtils::RandomBetween(-2.7f, -2.25f), 0.0f, 1.0f));
-		ParticlePosition[NextParticleIndex] = vec4(vec4(Controller->GetPosition() + dirVec, 1.0f));
 
-		vec3 speedDir = dirVec;
+		float positionOffsetX = MathUtils::RandomBetween(-0.6, 0.6);
+		float speedOffset = 10.0f * abs(positionOffsetX) / 0.75;
+		
+		// Tornar isso MathUtils::RandomBetween(-3.0f, -2.0f), 0.0f, 1.0f) algo mais customizavel, pois depende da nave. 
+		// Parametrizar em função da distância do motor
+
+		vec3 positionVec = vec3(rotationMatrix * vec4(positionOffsetX, MathUtils::RandomBetween(-3.0f, -2.0f), 0.0f, 1.0f));
+		ParticlePosition[NextParticleIndex] = vec4(vec4(Controller->GetPosition() + positionVec, 1.0f));
+
+		vec3 speedDir = positionVec;
 		speedDir = speedDir / vec3(MathUtils::Norm(speedDir)) * (0.25f + (thrustProportion / 4.0f));
-		vec4 speed = vec4(speedDir + this->Controller->GetLinearSpeed() - vec3(rotationMatrix * (vec4(0.0f, (0.5f + thrustProportion * 25.0f) + MathUtils::RandomBetween(-2.0f, 2.0f), 0.f, 1.0f))), 1.0f);
+		vec4 speed = vec4(speedDir + this->Controller->GetLinearSpeed() - vec3(rotationMatrix * (vec4(MathUtils::RandomBetween(-5.0f, 5.0f) * (1.0f - thrustProportion/5), (thrustProportion * (10.0f + speedOffset * 5.0f)) + MathUtils::RandomBetween(0.0f, 5.0f), 0.f, 1.0f))), 1.0f);
 
 		float whiteness = MathUtils::RandomBetween(0.60f, 0.80f);
 		ParticleColor[NextParticleIndex] = vec4(MathUtils::RandomBetween(0.85f, 1.0f), MathUtils::RandomBetween(0.85f, 1.0f), whiteness, 1.0f);
-		ParticleColor2[NextParticleIndex] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+		// Debug Only -> ParticleColor2[NextParticleIndex] = vec4(0.0f, 1.0f, 0.0f, 1.0f);
 		ParticleVelocity[NextParticleIndex] = speed;
-		ParticleTTL[NextParticleIndex] = MaxTimeToLive - MathUtils::RandomBetween(0.0f, 0.20f);
+		ParticleTTL[NextParticleIndex] = MaxTimeToLive + MathUtils::RandomBetween(0.0f, 0.10f);
 
 		// Atualiza o índice circular
 		NextParticleIndex = (NextParticleIndex + 1) % MaxParticlesNumber;
@@ -324,7 +331,7 @@ void ShipModel::GenerateParticles()
 		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticleVelocity[0]);
 
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticleColor2[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(vec4), &ParticleColor[0]); // To debug use &ParticleColor2[0]
 
 		glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, overflow * sizeof(float), &ParticleTTL[0]);

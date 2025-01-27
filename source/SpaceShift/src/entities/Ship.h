@@ -110,12 +110,15 @@ public:
 	ShipTypeId GetShipType() { return this->ShipType; }
 	float GetThrustIntensity() { return thrustIntensity; }
 	float GetThrustIntensityMax() { return thrustIntensityMax; }
+	void SetThrustByMax(float intensityRelative) { thrustIntensity = intensityRelative * thrustIntensityMax; }
 
 	// Setters
 	void SetScale(vec3 scale) { Model.SetScale(scale); }
 	void SetShipColor(vec4 shipColor) { Model.SetShipModelColor(shipColor); }
 	void SetCollidingRaidius(float r) { return this->Collider.SetCollidingRadius(r); }
-	void SetAutonomous(AutonomyShipModule* ASM);
+	void SetAutonomy(AutonomyShipModule* ASM);
+	void SetAutonomous(bool value);
+	AutonomyShipModule* GetAutonomy() { return this->Autonomy; }
 
 	void SetThrustIntensityMax(float thrustMax) { this->thrustIntensityMax = thrustMax; }
 };

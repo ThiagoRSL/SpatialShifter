@@ -244,13 +244,15 @@ int main(int argc, char* argv[])
 	//Se isso for carregado depois dos monstros o mouse para de renderizar ???
 
 	tempEnemyShip = new Ship(ShipTypeId::STANDARD_SHIP_ID);
-	tempEnemyShip->SetPosition(vec3(0.0f, 0.0f, 0.0f));
+	tempEnemyShip->SetPosition(vec3(60.0f, 60.0f, 0.0f));
 	tempEnemyShip->SetLinearSpeed(vec3(0.0f, 0.0f, 0.0f));
 	tempEnemyShip->SetShipColor(vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	tempEnemyShip->SetMass(3500);
 	tempEnemyShip->SetHitPoints(100.0f);
 	tempEnemyShip->SetThrustIntensityMax(300000.0f);
 	tempEnemyShip->SetFaction(Faction::PLAYER);
+	tempEnemyShip->SetAutonomy(new AutonomyShipModule(tempEnemyShip, 500.f, PlayerShip->GetPositionRef()));
+	tempEnemyShip->SetAutonomous(true);
 	tempEnemyShip->Init();
 
 	PlayerShip = new Ship(ShipTypeId::STANDARD_SHIP_ID);
@@ -261,6 +263,8 @@ int main(int argc, char* argv[])
 	PlayerShip->SetHitPoints(100.0f);
 	PlayerShip->SetThrustIntensityMax(300000.0f);
 	PlayerShip->SetFaction(Faction::PLAYER);
+	PlayerShip->SetAutonomy(new AutonomyShipModule(PlayerShip, 0.f, NULL));
+	PlayerShip->SetAutonomous(false);
 	PlayerShip->Init();
 
 	StageManager::GetInstance()->SetPlayer(PlayerShip);

@@ -35,6 +35,12 @@ class MathUtils
 			glm::vec2 diff = b - a;
 			return std::fabs(std::atan2(diff.y, diff.x) * (180.0 / MathUtils::PI));
 		}
+		static float AngleInRange(float baseAngle, float otheAngle, float angleTolerance)
+		{
+			float angleDifference = fmod(fabs(baseAngle - otheAngle), 360.0f);
+			return angleDifference < angleTolerance;
+		}
+
 		static float DistanceBetween(glm::vec2 a, glm::vec2 b)
 		{
 			glm::vec2 diff = b - a;
