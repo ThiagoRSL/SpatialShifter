@@ -21,20 +21,19 @@ void AutonomyShipModule::Update(double t)
 {
 	if (CurrentTask == nullptr)
 	{
-		if (Tasks.empty())
-			return;
-
-		Task* t = PeekTask();
-		if (t->CheckRequirements()) CurrentTask = FetchTask();
-		if (CurrentTask != nullptr)
-			CurrentTask->State = TaskState::STARTING;		
+		if (!Tasks.empty())
+		{
+			Task* t = PeekTask();
+			if (t->CheckRequirements()) CurrentTask = FetchTask();
+			if (CurrentTask != nullptr)
+				CurrentTask->State = TaskState::STARTING;
+		}
 	}
 
-	if (CurrentTask == nullptr)
-		return;
-
-	switch (CurrentTask->State)
+	if (CurrentTask != nullptr)
 	{
+		switch (CurrentTask->State)
+		{
 		case TaskState::STARTING:
 			CurrentTask->Start();
 			break;
@@ -42,10 +41,22 @@ void AutonomyShipModule::Update(double t)
 			CurrentTask->Run(t);
 			break;
 		case TaskState::ENDED:
+			delete CurrentTask;
 			CurrentTask = nullptr;
 			break;
+		}
 	}
 	
+	// Se não estiver fazer nada, estabiliza.
+	if (Tasks.empty())
+	{
+		if (!IsStabilized())
+		{
+			StabilizeToTask* t = new StabilizeToTask();
+			this->AddTaskStart(t);
+			return;
+		}
+	}
 
 
 	/*if (MathUtils::Norm(*EnemyPosition - Agent->GetPosition()) < this->awareRadius)
@@ -134,7 +145,7 @@ bool AutonomyShipModule::RotateToAngle(float angle, float angleTolerance)
 
 		// Se diff é positivo, o agente precisa rotacionar no sentido anti-horário (esquerda).
 		// Se diff é negativo, o agente precisa rotacionar no sentido horário (direita).
-		float deltaAngle = 10.0f + 2 * fabs(diff);
+		float deltaAngle = 25.0f + 4 * fabs(diff);
 
 		// Agora, determinamos a direção com base em "diff".
 		if (diff > 0.0f)  // Se diff é positivo, gira no sentido anti-horário
@@ -170,6 +181,48 @@ bool AutonomyShipModule::Seeking(double t)
 	vec2 agentPos = vec2(Agent->GetPosition());
 	float distanceToTarget = MathUtils::Norm(SeekPosition - agentPos);
 	glm::vec3 CurrentSpeed = Agent->GetLinearSpeed();
+	float currentSpeedNorm = MathUtils::Norm(CurrentSpeed);
+	float currentSpeedAngle = -glm::degrees(atan2(CurrentSpeed.x, CurrentSpeed.y)); // -x, x belongs to [-180, 180]
+
+	// Verifica se atingiu o objetivo.
+	if (distanceToTarget < 5.0f && currentSpeedNorm < 1.0f)
+	{
+		printf("\n Atingiu o objetivo.");
+		Agent->SetThrustByMax(0.0f);
+		Agent->SetLinearSpeed(vec3(0.0f));
+		Agent->SetAngularSpeed(vec3(0.0f));
+		return true;
+	}
+
+	// Calcula a projeção em X (10) iterações futuras
+	double remainingTravelTime = this->Agent->TimeToReach(SeekPosition);
+
+	float mass = this->Agent->GetMass();
+	vec2 desiredThrust = this->Agent->ThrustToGo(SeekPosition, min(2.0f, remainingTravelTime + 0.75f), SpeedLimit);
+	float desiredThrustAngle = -glm::degrees(atan2(desiredThrust.x, desiredThrust.y)); // -x, x belongs to [-180, 180]
+
+
+	if (!this->RotateToAngle(desiredThrustAngle, 0.25f))
+		return false;
+
+	float DeltaThrust = max(0.0f, (MathUtils::Norm(desiredThrust) / Agent->GetThrustIntensityMax())); //Considerar o SpeedLimit
+	// Ajusta o thrust em função da proximidade para desacelerar a mais
+	if (remainingTravelTime < 2.0f)
+	{
+		DeltaThrust = min(1.0f, DeltaThrust * (1 / (remainingTravelTime)));
+	}
+
+	Agent->SetThrustByMax(DeltaThrust);
+
+	return false;
+}
+
+/*
+bool AutonomyShipModule::Seeking(double t)
+{
+	vec2 agentPos = vec2(Agent->GetPosition());
+	float distanceToTarget = MathUtils::Norm(SeekPosition - agentPos);
+	glm::vec3 CurrentSpeed = Agent->GetLinearSpeed();
 	float CurrentSpeedNorm = MathUtils::Norm(CurrentSpeed);
 	float angleSpeed = -glm::degrees(atan2(CurrentSpeed.x, CurrentSpeed.y)); // -x, x belongs to [-180, 180]
 
@@ -189,7 +242,7 @@ bool AutonomyShipModule::Seeking(double t)
 	}
 
 	// Verifica se está estabilizada
-	if (!MathUtils::AngleInRange(angle, angleSpeed, 1.0f))	// !this->IsStabilized() && 
+	if (!MathUtils::AngleInRange(angle, angleSpeed, 1.0f))	// !this->IsStabilized() &&
 	{
 		if (!this->Stabilize())
 			return false;
@@ -201,7 +254,6 @@ bool AutonomyShipModule::Seeking(double t)
 	float distanceProjectionToTarget = MathUtils::Norm(SeekPosition - vec2(positionProjection));
 	float remainingTravelTime = distanceToTarget / CurrentSpeedNorm;
 
-
 	// Ajusta o Angulo em direção do Objetivo
 	if (!this->RotateToAngle(angle, 1.0f))
 		return false;
@@ -211,6 +263,8 @@ bool AutonomyShipModule::Seeking(double t)
 	Agent->SetThrustByMax(DeltaThrust);
 	return false;
 }
+*/
+
 
 bool AutonomyShipModule::Wandering(double t)
 {
@@ -278,8 +332,26 @@ bool AutonomyShipModule::Combating(double t)
 }
 
 
+void AutonomyShipModule::ShutdownAutonomy()
+{
+	this->ClearTasks();
+	this->Agent->SetAutonomous(false);
+}
+
+void AutonomyShipModule::ClearTasks() {
+	Tasks.clear(); 
+	if (CurrentTask != nullptr)
+	{
+		CurrentTask->Abort();
+		delete CurrentTask;
+		CurrentTask = nullptr;
+	}
+}
 
 void AutonomyShipModule::AddTaskStart(Task* t) { Tasks.push_front(t); t->AddedQeue(this); }
 void AutonomyShipModule::AddTaskEnd(Task* t) { Tasks.push_back(t); t->AddedQeue(this); }
 
-bool AutonomyShipModule::IsStabilized() { return MathUtils::Norm(Agent->GetLinearSpeed()) < StabilizedSpeedTolerance; }
+bool AutonomyShipModule::IsStabilized() 
+{ 
+	return MathUtils::Norm(Agent->GetLinearSpeed()) < StabilizedSpeedTolerance || MathUtils::Norm(Agent->GetAngularSpeed()) < StabilizedSpeedTolerance;
+}

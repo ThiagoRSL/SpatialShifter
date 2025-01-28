@@ -40,6 +40,8 @@ class GlobalVars
 		static bool ALPHA_PHYSICS;
 		static bool BRAIN_LESS;
 
+		static int ENEMY_LIMIT;
+
 	public:
 };
 

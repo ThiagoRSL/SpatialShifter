@@ -118,6 +118,9 @@ void Entity::Init()
 {
 	isDestroyed = false;
 	inertiaMoment = 1.0f;
+	position = vec3(0.0f, 0.0f, 1.0f);
+	rotation = vec3(0.0f, 0.0f, 0.0f);
+	direction = vec3(1.0f, 0.0f, 0.0f);
 }
 
 
@@ -129,4 +132,61 @@ void Entity::AddInstantaneousForce(Force f)
 void Entity::ClearInstantaneousForce()
 {
 	instantaneousForces.clear();
+}
+
+void Entity::RotateDirection()
+{
+	direction.x = 1.0 * glm::cos(glm::radians(this->rotation.z + 90.0f));
+	direction.y = 1.0 * glm::sin(glm::radians(this->rotation.z + 90.0f));
+}
+
+
+vec2 Entity::ThrustToGo(vec2 goalPosition, double desiredTime, float SpeedLimit)
+{
+	float mass = this->GetMass();
+	vec2 currentPosition = vec2(this->GetPosition());
+	vec2 currentSpeed = vec2(this->GetLinearSpeed());
+	vec2 currentAcceleration = vec2(this->GetLinearAcceleration());
+
+	vec2 time = vec2(desiredTime);
+	vec2 distance = goalPosition - currentPosition;
+
+	vec2 targetSpeed = distance / time;
+	vec2 targetSpeedDirection = MathUtils::Normalize(targetSpeed);
+
+	if (MathUtils::Norm(targetSpeed) > SpeedLimit)
+	{
+		targetSpeed.x = (targetSpeedDirection.x * SpeedLimit);
+		targetSpeed.y = (targetSpeedDirection.y * SpeedLimit);
+	}
+
+	vec2 deltaSpeed = (targetSpeed - currentSpeed);
+
+	vec2 targetAcceleration = (deltaSpeed / time);
+	vec2 targetThrust = mass * targetAcceleration;
+
+	return targetThrust;
+}
+
+double Entity::TimeToReach(vec2 goalPosition)
+{
+	float mass = this->GetMass();
+	vec2 currentPosition = vec2(this->GetPosition());
+	vec2 currentSpeed = vec2(this->GetLinearSpeed());
+	vec2 distanceToGoal = goalPosition - currentPosition;
+
+	// Se a velocidade do agente for zero e a distância for positiva, o agente nunca atingirá o objetivo
+	if (MathUtils::Norm(currentSpeed) == 0.0f)
+		return std::numeric_limits<double>::infinity(); // Nunca atingirá
+
+	// Verifica se a velocidade está apontando para longe do objetivo (produto escalar negativo)
+	float dotProduct = MathUtils::DotProduct(currentSpeed, distanceToGoal);
+	if (dotProduct <= 0.0f)
+	{
+		return std::numeric_limits<double>::infinity(); // Nunca atingirá
+	}
+
+	double t = MathUtils::Norm(distanceToGoal) / MathUtils::Norm(currentSpeed);
+
+	return t;
 }

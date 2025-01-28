@@ -36,13 +36,16 @@ private:
 	vec2 windowSize;
 	CursorModel Model;
 	vec2 mousePosition;
+	std::vector<vec3> PathPatrolSelection;
 
 	Ship* DebugEnemy;
 	Ship* PlayerShip;
 	
 	//Melhorar teclas de controle
-	bool LeftShiftPressed = false;
 	bool LeftCtrPressed = false;
+	bool LeftAltPressed = false;
+	bool CommandingAutonomy = false;
+	
 	
 	InputManager();
 	InputManager(GLFWwindow* window, int size);

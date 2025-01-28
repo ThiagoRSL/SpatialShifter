@@ -24,6 +24,7 @@ Ship::Ship(ShipTypeId shipTypeId)
 	this->speedMax = 100.0f;
 	this->ShipType = shipTypeId;
 	this->isAutonomous = false;
+	this->Autonomy = NULL;
 	this->faction = Faction::FACTION_LESS;
 	this->hitPoints = 1;
 	this->shotCooldown = 0.0f;
@@ -108,13 +109,13 @@ void Ship::ShotAt(vec3 shotTarget)
 
 	//Força que da impulso para o projétil e da o recoil na nave.
 	shotTarget.z = position.z;
-	glm::vec3 direction = glm::normalize(shotTarget - position);
+	glm::vec3 dir = glm::normalize(shotTarget - position);
 
 	// calcular o ângulo de rotação no eixo Z
-	float angle = - glm::degrees(atan2(direction.x, direction.y));
+	float angle = - glm::degrees(atan2(dir.x, dir.y));
 
 	Force f = Force();
-	f.SetAsVec(direction * 125000.0f);
+	f.SetAsVec(dir * 125000.0f);
 
 
 	Projectile* p = new Projectile(this, 0.4f, 15.0f, 10.0f, DamageType::BALISTIC_DAMAGE, 5.0f, this->position,
@@ -124,12 +125,6 @@ void Ship::ShotAt(vec3 shotTarget)
 	this->shotCooldown = this->shotCooldownTime;
 }
 
-
-void Ship::RotateDirection()
-{
-	direction.x = 1.0 * glm::cos(glm::radians(this->rotation.z + 90.0f));
-	direction.y = 1.0 * glm::sin(glm::radians(this->rotation.z + 90.0f));
-}
 
 void Ship::AdjustRotationX(float WheelForceVal)
 {
@@ -289,12 +284,20 @@ void Ship::CollideWithShip(Ship& otherShip, glm::vec3 collisionPoint)
 
 void Ship::SetAutonomy(AutonomyShipModule* ASM)
 {
-	this->isAutonomous = false;
 	this->Autonomy = ASM;
+	this->SetAutonomous(false);
 }
 
 void Ship::SetAutonomous(bool value)
 {
-	if(this->Autonomy != NULL)
+	if (this->Autonomy != NULL)
+	{
 		this->isAutonomous = value;
+		if (!value)
+			this->Autonomy->ClearTasks();
+	}
+	else
+	{
+		printf("\n Ocorreu uma tentativa de definir como Autonoma uma nave que não possui um módulo de autonomia.");
+	}
 }

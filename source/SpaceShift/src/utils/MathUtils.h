@@ -55,6 +55,19 @@ class MathUtils
 			float random_number = dis(gen);
 			return random_number;
 		}
+		static float DotProduct(vec2 a, vec2 b)
+		{
+			return (a.x * b.x) + (a.y * b.y);
+		}
+		static vec2 Normalize(vec2 a)
+		{
+			float mag = MathUtils::Norm(a);  // Calcula a magnitude (norma) do vetor 'a'
+
+			if (mag == 0.0f)
+				return vec2(0.0, 0.0);
+
+			return vec2(a.x / mag, a.y / mag);
+		}
 
 		//1 -> horario | -1 -> anti-horario | 0 -> colinear
 		//int GetOrientation(float x0, float y0, float x1, float y1, float x2, float y2);

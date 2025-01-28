@@ -13,11 +13,13 @@ StageManager::StageManager()
 void StageManager::UpdateStage(double t)
 {
 	int deltaDifficulty = KillCounter / 2;
-	for (int i = EnemyCounter; i < (3 + deltaDifficulty); i++)
+	int enemyNumber = min(GlobalVars::ENEMY_LIMIT, (3 + deltaDifficulty));
+
+	for (int i = EnemyCounter; i < enemyNumber; i++)
 	{
 		SpawnEnemy();
 	}
-	if (KillCounter >= 10 && BossSpawned == false)
+	if (KillCounter >= 10 && !BossSpawned)
 	{
 		SpawnBoss(); 
 		BossSpawned = true;
@@ -73,8 +75,12 @@ void StageManager::SpawnBoss()
 	tempEnemyShip->SetFaction(Faction::RED_CROSS);
 	tempEnemyShip->SetThrustIntensityMax(25000000.0f);
 	tempEnemyShip->Init();
-	if(!GlobalVars::BRAIN_LESS)
-		tempEnemyShip->SetAutonomous(new AutonomyShipModule(tempEnemyShip, GlobalVars::STANDARD_AWARE_RADIUS * 10, PlayerShip->GetPositionRef()));
+	if (!GlobalVars::BRAIN_LESS)
+	{
+		tempEnemyShip->SetAutonomy(new AutonomyShipModule(tempEnemyShip, GlobalVars::STANDARD_AWARE_RADIUS * 10, PlayerShip->GetPositionRef()));
+		tempEnemyShip->SetAutonomous(true);
+	}
+
 	Enemies.push_back(tempEnemyShip);
 }
 
@@ -82,6 +88,7 @@ void StageManager::ShipDestroyed(Ship* ship)
 {
 	if (ship->GetFaction() != Faction::PLAYER)
 	{
+		KillCounter++;
 		for (auto it = Enemies.begin(); it != Enemies.end(); ++it) {
 			if (*it == ship) {
 				EnemyCounter--;

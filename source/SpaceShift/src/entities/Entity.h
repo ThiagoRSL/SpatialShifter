@@ -53,7 +53,6 @@ protected:
 	vec3 angularAcceleration;
 	vec3 angularSpeed;
 	vec3 rotation;
-
 	vec3 direction;
 
 	Faction faction;
@@ -92,7 +91,8 @@ public:
 	virtual void CollideAtProjection(Entity& otherEntity, glm::vec3 collisionPoint) = 0;
 
 public:
-
+	
+	void RotateDirection();
 	void SetPosition(vec3 position) { this->position = position; }
 	void SetRotation(vec3 rotation) { this->rotation = rotation; }
 	void SetInertia(float i) { inertiaMoment = i; }
@@ -105,6 +105,7 @@ public:
 	float GetHitPoints() { return this->hitPoints; }
 	vec3 GetPosition() { return position; }
 	vec3 GetRotation() { return rotation; }
+	vec3 GetDirection() { return direction; }
 	vec3* GetPositionRef() { return &position; }
 	vec3* GetRotationRef() { return &rotation; }
 	virtual mat4 GetMVP() { return mat4(); }
@@ -120,4 +121,7 @@ public:
 
 
 	Faction GetFaction() { return this->faction; }
+
+	vec2 ThrustToGo(vec2 goalPosition, double desiredTime, float SpeedLimit);
+	double TimeToReach(vec2 goalPosition);
 };

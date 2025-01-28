@@ -7,6 +7,7 @@ float GlobalVars::RENDER_DISTANCE = 500.0f;
 bool  GlobalVars::FULL_SCREEN = true;
 bool  GlobalVars::DEBUG_MODE = false;
 bool  GlobalVars::BRAIN_LESS = false;
+int  GlobalVars::ENEMY_LIMIT = 20;
 
 // Collision
 bool GlobalVars::SAME_FACTION_COLLIDE = true;

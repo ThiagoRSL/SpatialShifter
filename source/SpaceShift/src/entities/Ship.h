@@ -32,7 +32,6 @@ private:
 	float shotCooldown;
 	float shotCooldownTime;
 
-	vec3 direction;
 	Force thrustForce;
 	Force rotationWheelForce;
 	Force rotationWheelForceCounter;
@@ -82,7 +81,6 @@ public:
 
 	void AdjustRotationZ(float WheelForceVal);
 	void AdjustRotationX(float WheelForceVal);
-	void RotateDirection();
 	void UpdateRotation();
 
 	void CalculateShipInertia(const std::vector<glm::vec3>& vertexes);
@@ -118,6 +116,7 @@ public:
 	void SetCollidingRaidius(float r) { return this->Collider.SetCollidingRadius(r); }
 	void SetAutonomy(AutonomyShipModule* ASM);
 	void SetAutonomous(bool value);
+	bool IsAutonomous() { return this->isAutonomous; }
 	AutonomyShipModule* GetAutonomy() { return this->Autonomy; }
 
 	void SetThrustIntensityMax(float thrustMax) { this->thrustIntensityMax = thrustMax; }

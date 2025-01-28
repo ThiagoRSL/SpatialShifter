@@ -50,7 +50,7 @@ private:
 	vec3* EnemyPosition;
 	vec2 TargetPosition;
 	vec2 SeekPosition;
-	float SpeedLimit = 40;
+	float SpeedLimit = 60;
 	float StabilizedSpeedTolerance = 0.1f;
 
 
@@ -75,9 +75,17 @@ public:
 	bool IsStabilized();
 	void SetBehaviour(AutonomyBehavior behavior) { this->CurrentBehavior = behavior; }
 
+
+	void ShutdownAutonomy();
+	void ClearTasks();
 	void AddTaskStart(Task* t);
 	void AddTaskEnd(Task* t);
-	Task* PeekTask() { return Tasks.front(); }
+	Task* PeekTask() 
+	{ 
+		if (Tasks.empty())
+			return nullptr; 
+		else return Tasks.front();
+	}
 	
 	Task* FetchTask() {
 		if (Tasks.empty()) return nullptr;  
