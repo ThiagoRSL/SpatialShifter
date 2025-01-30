@@ -33,35 +33,25 @@ void ColliderModel::SetController(Entity* controller)
 	rotation = controller->GetRotation();
 }
 
-void ColliderModel::LoadCollider(const char* colliderPath)
+/*void ColliderModel::LoadCollider(const char* colliderPath)
 {
 	ObjectLoader::LoadCollider(colliderPath, Vertexes, Edges);
-}
+}*/
 
 void ColliderModel::Init()
 {
 	/// matrices setup
 	modelMatrix = mat4(); // identity
 
-	glGenVertexArrays(1, &VaoID);
-	glBindVertexArray(VaoID);
-	VboID = new GLuint[5];
-	glGenBuffers(5, VboID);
-	glBindVertexArray(0);
-
-
 	ColliderShader = ShaderManager::GetInstance()->GetShader(ShaderType::SHADER_TYPE_COLLIDER);
 	if (ColliderShader == nullptr)
 	{
 		ColliderShader = new Shader();
-		GenerateBuffers();
-
-
 		printf("\n COMPILANDO SHADERS (1).");
 		ColliderShader->Compile("shader/ship/ship.vert", "shader/ship/ship.geom", "shader/ship/ship.frag");
 		ShaderManager::GetInstance()->AddShader(ShaderType::SHADER_TYPE_COLLIDER, ColliderShader);
+		ColliderShader->GenerateColliderBuffers();
 	}
-
 
 }
 
@@ -73,11 +63,7 @@ void ColliderModel::Render()
 	ColliderShader->setUniform(string("ScaleMatrix"), scaleMatrix);
 	ColliderShader->setUniform(string("Color"), vec4(1.0f));
 	// set var MVP on the shader
-	ColliderShader->Use();
-	glBindVertexArray(VaoID);
-	glDrawArrays(GL_TRIANGLES, 0, Indexes.size());
-	glBindVertexArray(0);
-	glUseProgram(0);
+	ColliderShader->Render();
 }
 
 void ColliderModel::Update(double deltaTime)
@@ -111,42 +97,3 @@ void ColliderModel::Update(double deltaTime)
 	//this->GenerateParticles();
 }
 
-void ColliderModel::GenerateBuffers()
-{
-	// Definindo as cores dos vértices.
-	for (int i = 0; i <= Indexes.size(); i++)
-	{
-		Colors.push_back(vec4(1.0f));
-	}	
-	
-	glBindVertexArray(VaoID);
-	
-	//Habilita transparência
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[0]);
-	glBufferData(GL_ARRAY_BUFFER, Vertexes.size() * sizeof(vec3), (GLvoid*)&Vertexes[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(0);  // VertexPosition -> layout 0 in the VS
-	 
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[1]);
-	glBufferData(GL_ARRAY_BUFFER, Uvs.size() * sizeof(vec2), (GLvoid*)&Uvs[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(1);  // UVs -> layout 1 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[2]);
-	glBufferData(GL_ARRAY_BUFFER, Normals.size() * sizeof(vec3), (GLvoid*)&Normals[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(2);  // Normals -> layout 2 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[3]);
-	glBufferData(GL_ARRAY_BUFFER, Colors.size() * sizeof(vec4), (GLvoid*)&Colors[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)3, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(3);  // Colors -> layout 3 in the VS
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VboID[4]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indexes.size() * sizeof(int), (GLvoid*)&Indexes[0], GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
-}

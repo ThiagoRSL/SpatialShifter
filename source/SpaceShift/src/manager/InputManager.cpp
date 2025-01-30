@@ -192,20 +192,21 @@ void InputManager::ProcessMouse(double deltaTime)
 			CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
 				CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
 
-		if (LeftAltPressed)
-		{
-			AutonomyShipModule *Autonomy = DebugEnemy->GetAutonomy();
-			if (Autonomy != NULL)
-			{
-				SeekTask* t = new SeekTask(target);
-				Autonomy->AddTaskEnd(t);
-			}
-			return;
-		}
-
 		if (!lastPressed)
 		{
 			lastPressed = true;
+
+			if (LeftAltPressed)
+			{
+				AutonomyShipModule* Autonomy = DebugEnemy->GetAutonomy();
+				if (Autonomy != NULL)
+				{
+					SeekTask* t = new SeekTask(target);
+					Autonomy->AddTaskEnd(t);
+				}
+				return;
+			}
+
 			if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
 			{
 				InterfaceManager::GetInstance()->GetMouseHoverElement()->Interact(InterfaceInteraction::MOUSE_CLICK_LEFT);
@@ -234,21 +235,21 @@ void InputManager::ProcessMouse(double deltaTime)
 			lastPressed = false;
 		}
 	}
+
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{
 		vec3 target = CameraManager::GetInstance()->WorldPivot() +
 			CoordinateTranslateUtils::ScreenToWorld(mousePosition.x, mousePosition.y, windowSize.x, windowSize.y,
 				CameraInstance->ViewMatrix(), CameraInstance->ProjectionMatrix(), PlayerShip->GetPosition().z);
 		
-		if (LeftAltPressed)
-		{
-			PathPatrolSelection.push_back(target);
-			return;
-		}
-
 		if (!lastPressed2)
 		{
 			lastPressed2 = true;
+			if (LeftAltPressed)
+			{
+				PathPatrolSelection.push_back(target);
+				return;
+			}
 
 			if (InterfaceManager::GetInstance()->GetMouseHoverElement() != NULL)
 			{

@@ -23,12 +23,11 @@ public:
 	ColliderModel() { ; }
 	ColliderModel(Entity* Controller);
 
-	void LoadCollider(const char* colliderPath);
+	//void LoadCollider(const char* colliderPath);
 	void SetController(Entity* controller);
 	void Init();
 	void Update(double t);
 	void Render();
-	void GenerateBuffers();
 	
 };
 

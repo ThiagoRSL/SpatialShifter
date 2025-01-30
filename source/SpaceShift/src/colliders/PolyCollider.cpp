@@ -226,54 +226,6 @@ void PolyCollider::Update(double deltaTime)
     
 }
 
-
-void PolyCollider::GenerateBuffers()
-{
-    GenerateColliderVertexes();
-
-    ColliderDebugShader->Use();
-    glGenVertexArrays(1, &VaoID);
-    glBindVertexArray(VaoID);
-
-    unsigned int handle[3];
-    glGenBuffers(3, handle);
-
-    glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
-    glBufferData(GL_ARRAY_BUFFER, Vertexes.size() * sizeof(vec3), (GLvoid*)&Vertexes[0], GL_STATIC_DRAW);
-    glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-    glEnableVertexAttribArray(0);  // VertexPosition -> layout 0 in the VS
-
-    glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
-    glBufferData(GL_ARRAY_BUFFER, Colors.size() * sizeof(vec4), (GLvoid*)&Colors[0], GL_STATIC_DRAW);
-    glVertexAttribPointer((GLuint)1, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-    glEnableVertexAttribArray(1);  // Colors -> layout 0 in the VS
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, handle[2]);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indexes.size() * sizeof(int), (GLvoid*)&Indexes[0], GL_STATIC_DRAW);
-
-    //Remove a referência atual VAO 
-    glBindVertexArray(0);
-}
-
-void PolyCollider::GenerateColliderVertexes()
-{
-    int i;
-    for (i = 0; i < Vertexes.size(); i++)
-    {
-        Vertexes.push_back(Vertexes.at(i));
-        Colors.push_back(vec4(1.0f, 1.0f, 1.0f, 1.0f));
-    }
-
-    for (i = 0; i < Edges.size(); i++)
-    {
-        std::pair<unsigned int, unsigned int> pair = Edges.at(i);
-        Edges.push_back(pair);
-        Indexes.push_back(pair.first-1);
-        Indexes.push_back(pair.second - 1);
-    }
-    Colors.push_back(vec4(1.0f, 0.0f, 1.0f, 1.0f));
-}
-
 void PolyCollider::Render()
 {
     ColliderDebugShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
@@ -283,11 +235,7 @@ void PolyCollider::Render()
     ColliderDebugShader->setUniform(string("DebugColor"), DebugColliderColor);
 
     // set var MVP on the shader
-    ColliderDebugShader->Use();
-    glBindVertexArray(VaoID);
-    glDrawElements(GL_LINES, Indexes.size(), GL_UNSIGNED_INT, (GLubyte*)NULL);
-    glBindVertexArray(0);
-    glUseProgram(0);
+    ColliderDebugShader->RenderColliderDebug();
 
 }
 // bool isCollidingWithCirc(const CircCollider& circ);

@@ -4,9 +4,9 @@
 bool  GlobalVars::ALPHA_PHYSICS = true;
 bool GlobalVars::PERSPECTIVE = false;
 float GlobalVars::RENDER_DISTANCE = 500.0f;
-bool  GlobalVars::FULL_SCREEN = true;
+bool  GlobalVars::FULL_SCREEN = false;
 bool  GlobalVars::DEBUG_MODE = false;
-bool  GlobalVars::BRAIN_LESS = false;
+bool  GlobalVars::BRAIN_LESS = true;
 int  GlobalVars::ENEMY_LIMIT = 20;
 
 // Collision

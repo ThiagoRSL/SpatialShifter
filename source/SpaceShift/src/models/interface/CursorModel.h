@@ -14,10 +14,7 @@ class CursorModel : public RenderModel
 private:
 	Shader* CursorShader;
 	int TextureIndex;
-
 	vec2 mousePosition;
-
-	void GenerateBuffers();
 
 public:
 	CursorModel() { ; }

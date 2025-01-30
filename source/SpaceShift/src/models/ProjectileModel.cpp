@@ -47,23 +47,19 @@ void ProjectileModel::Init()
 		ProjectileShader = new Shader();
 		printf("\n COMPILANDO SHADERS (1).");
 		ProjectileShader->Compile("shader/projectile/ballistic.vert", "shader/projectile/ballistic.geom", "shader/projectile/ballistic.frag"); //"shader/ship/ship.geom",
+		
 		ShaderManager::GetInstance()->AddShader(this->Controller->GetProjectileType(), ProjectileShader);
+
+		bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetProjectileModelPath(ProjectileType), ProjectileShader->Vertexes, 
+			ProjectileShader->Uvs, ProjectileShader->Normals, ProjectileShader->Indexes);
+
+		if (res)
+			printf("Arquivo de modelo 3d carregado com sucesso!");
+		else
+			printf("Arquivo de modelo 3d não foi carregado com sucesso.");
+
+		ProjectileShader->GenerateBuffers();
 	}
-
-	bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetProjectileModelPath(ProjectileType), Vertexes, Uvs, Normals, Indexes);
-
-	if (res)
-		printf("Arquivo de modelo 3d carregado com sucesso!");
-	else
-		printf("Arquivo de modelo 3d não foi carregado com sucesso.");
-
-	glGenVertexArrays(1, &VaoID);
-	glBindVertexArray(VaoID);
-	VboID = new GLuint[5];
-	glGenBuffers(5, VboID);
-	glBindVertexArray(0);
-
-	GenerateBuffers();
 }
 
 void ProjectileModel::Render()
@@ -78,11 +74,7 @@ void ProjectileModel::Render()
 	ProjectileShader->setUniform(string("Destroyed"), this->Controller->IsDestroyed());
 
 	// set var MVP on the shader
-	ProjectileShader->Use();
-	glBindVertexArray(VaoID);
-	glDrawArrays(GL_TRIANGLES, 0, Indexes.size());
-	glBindVertexArray(0);
-	glUseProgram(0);
+	ProjectileShader->Render();
 }
 
 
@@ -96,48 +88,6 @@ void ProjectileModel::Update(double deltaTime)
 
 	this->GenerateParticles();
 }
-
-void ProjectileModel::GenerateBuffers()
-{
-
-	// Definindo as cores dos vértices.
-	for (int i = 0; i <= Indexes.size(); i++)
-	{
-		Colors.push_back(ProjectileModelColor);
-	}	
-
-	glBindVertexArray(VaoID);
-
-	//Habilita transparência
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[0]);
-	glBufferData(GL_ARRAY_BUFFER, Vertexes.size() * sizeof(vec3), (GLvoid*)&Vertexes[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(0);  // VertexPosition -> layout 0 in the VS
-	 
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[1]);
-	glBufferData(GL_ARRAY_BUFFER, Uvs.size() * sizeof(vec2), (GLvoid*)&Uvs[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(1);  // UVs -> layout 1 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[2]);
-	glBufferData(GL_ARRAY_BUFFER, Normals.size() * sizeof(vec3), (GLvoid*)&Normals[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(2);  // Normals -> layout 2 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[3]);
-	glBufferData(GL_ARRAY_BUFFER, Colors.size() * sizeof(vec4), (GLvoid*)&Colors[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)3, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(3);  // Colors -> layout 3 in the VS
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VboID[4]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indexes.size() * sizeof(int), (GLvoid*)&Indexes[0], GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
-}
-
 
 void ProjectileModel::GenerateParticles()
 {

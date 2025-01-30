@@ -198,12 +198,15 @@ bool AutonomyShipModule::Seeking(double t)
 	double remainingTravelTime = this->Agent->TimeToReach(SeekPosition);
 
 	float mass = this->Agent->GetMass();
-	vec2 desiredThrust = this->Agent->ThrustToGo(SeekPosition, min(2.0f, remainingTravelTime + 0.75f), SpeedLimit);
+	vec2 desiredThrust = this->Agent->ThrustToGo(SeekPosition, min(2.0f, remainingTravelTime + 1.5f), SpeedLimit);
 	float desiredThrustAngle = -glm::degrees(atan2(desiredThrust.x, desiredThrust.y)); // -x, x belongs to [-180, 180]
 
-
-	if (!this->RotateToAngle(desiredThrustAngle, 0.25f))
+	if (!this->RotateToAngle(desiredThrustAngle, 0.5f))
+	{
 		return false;
+	}
+
+	//printf(" \n Thrust: (%f, %f) RemainingTime: %f ", desiredThrust.x, desiredThrust.y, remainingTravelTime);
 
 	float DeltaThrust = max(0.0f, (MathUtils::Norm(desiredThrust) / Agent->GetThrustIntensityMax())); //Considerar o SpeedLimit
 	// Ajusta o thrust em função da proximidade para desacelerar a mais

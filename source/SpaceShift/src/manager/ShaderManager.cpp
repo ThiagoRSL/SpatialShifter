@@ -50,7 +50,7 @@ Shader* ShaderManager::GetShader(ProjectileTypeID projectileId)
         return it->second;
     }
     else {
-        std::cout << "\nShader de SKILL requisitado não encontrado no dicionário.\n" << std::endl;
+        std::cout << "\nShader de Projectile requisitado não encontrado no dicionário.\n" << std::endl;
         return nullptr;
     }
 }
@@ -76,7 +76,7 @@ Shader* ShaderManager::GetShader(int id, ShaderType typeShader)
         return it->second;
     }
     else {
-        std::cout << "\nShader requisitado não encontrado no dicionário.\n" << std::endl;
+        std::cout << "\nShader requisitado não encontrado no dicionário (Com ID).\n" << std::endl;
         return nullptr;
     }
 }

@@ -120,6 +120,7 @@ public:
 	vec3& GetLinearAcceleration() { return this->acceleration; }
 
 
+
 	Faction GetFaction() { return this->faction; }
 
 	vec2 ThrustToGo(vec2 goalPosition, double desiredTime, float SpeedLimit);

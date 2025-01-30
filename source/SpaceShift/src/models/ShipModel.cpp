@@ -57,13 +57,23 @@ void ShipModel::Init()
 		printf("\n COMPILANDO SHADERS (1).");
 		ShipModelShader->Compile("shader/ship/ship.vert", "shader/ship/ship.geom", "shader/ship/ship.frag");
 		ShaderManager::GetInstance()->AddShader(shipTypeIdInt, ShaderType::SHADER_TYPE_SHIP, ShipModelShader);
+
+		bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetShipModelPath(shipType), 
+			ShipModelShader->Vertexes, ShipModelShader->Uvs, ShipModelShader->Normals, ShipModelShader->Indexes);
+
+		if (res)
+			printf("Arquivo de modelo 3d carregado com sucesso!");
+		else
+			printf("Arquivo de modelo 3d não foi carregado com sucesso."); 
+
+		ShipModelShader->GenerateBuffers();
 	}
 
 	ParticleShader = ShaderManager::GetInstance()->GetParticleShader();
 	if (ParticleShader == nullptr)
 	{
 		ParticleShader = new Shader();
-		printf("\n COMPILANDO SHADERS (1).");
+		printf("\n COMPILANDO SHADERS (Particulas).");
 		ParticleShader->Compile("shader/particle/particles.vert", "shader/particle/particles.geom", "shader/particle/particles.frag");
 		ShaderManager::GetInstance()->SetParticleShader(ParticleShader);
 	}
@@ -74,27 +84,12 @@ void ShipModel::Init()
 
 	ParticleTextureIndex = TextureManager::Inst()->GetTexture(GlobalPaths::PARTICLE_ENGINE_PATH);
 
-	
-	bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetShipModelPath(shipType), Vertexes, Uvs, Normals, Indexes);
-
-	if (res)
-		printf("Arquivo de modelo 3d carregado com sucesso!");
-	else
-		printf("Arquivo de modelo 3d não foi carregado com sucesso.");
-
-	glGenVertexArrays(1, &VaoID);
-	glBindVertexArray(VaoID);
-	VboID = new GLuint[5];
-	glGenBuffers(5, VboID);
-	glBindVertexArray(0);
-
 	glGenVertexArrays(1, &ParticlesVaoID);
 	glBindVertexArray(ParticlesVaoID);
 	ParticlesVboID = new GLuint[5];
 	glGenBuffers(5, ParticlesVboID);
 	glBindVertexArray(0);
 
-	GenerateBuffers();
 }
 
 void ShipModel::Render()
@@ -146,12 +141,7 @@ void ShipModel::Render()
 	glActiveTexture(GL_TEXTURE0);
 
 	ShipModelShader->Use();
-	glBindVertexArray(VaoID);
-	glDrawArrays(GL_TRIANGLES, 0, Indexes.size());
-	glBindVertexArray(0);
-	glUseProgram(0);
-
-
+	ShipModelShader->Render();
 }
 
 void ShipModel::Update(double deltaTime)
@@ -183,79 +173,6 @@ void ShipModel::Update(double deltaTime)
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
 
 	CameraManager* cam = CameraManager::GetInstance();
-}
-
-void ShipModel::GenerateBuffers()
-{
-	// Definindo as cores dos vértices.
-	for (int i = 0; i <= Indexes.size(); i++)
-	{
-		Colors.push_back(ShipModelColor);
-	}	
-
-	glBindVertexArray(VaoID);
-
-	//Habilita transparência
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[0]);
-	glBufferData(GL_ARRAY_BUFFER, Vertexes.size() * sizeof(vec3), (GLvoid*)&Vertexes[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(0);  // VertexPosition -> layout 0 in the VS
-	 
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[1]);
-	glBufferData(GL_ARRAY_BUFFER, Uvs.size() * sizeof(vec2), (GLvoid*)&Uvs[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)1, 2, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(1);  // UVs -> layout 1 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[2]);
-	glBufferData(GL_ARRAY_BUFFER, Normals.size() * sizeof(vec3), (GLvoid*)&Normals[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(2);  // Normals -> layout 2 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, VboID[3]);
-	glBufferData(GL_ARRAY_BUFFER, Colors.size() * sizeof(vec4), (GLvoid*)&Colors[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)3, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(3);  // Colors -> layout 3 in the VS
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VboID[4]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indexes.size() * sizeof(int), (GLvoid*)&Indexes[0], GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
-
-	glBindVertexArray(ParticlesVaoID);
-
-	//Habilita transparência
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
-	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
-	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), NULL, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer((GLuint)0, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(0);  // VertexPosition -> layout 0 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
-	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), NULL, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer((GLuint)1, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(1);  // VertexPosition -> layout 0 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
-	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), NULL, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer((GLuint)2, 4, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(2);  // VertexPosition -> layout 0 in the VS
-
-	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
-	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(float), NULL, GL_DYNAMIC_DRAW);
-	glVertexAttribPointer((GLuint)3, 1, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
-	glEnableVertexAttribArray(3);  // VertexPosition -> layout 0 in the VS
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[4]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, MaxParticlesNumber * sizeof(int), NULL, GL_DYNAMIC_DRAW);
-
-	glBindVertexArray(0);
-
-
 }
 
 void ShipModel::GenerateParticles()
@@ -358,69 +275,9 @@ void ShipModel::GenerateParticles()
 	}
 
 	glBindVertexArray(0);
-
 }
 
-/*
-#version 430
-
-layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
-
-layout(std430, binding = 0) buffer PositionBuffer
+void ShipModel::Delete()
 {
-	vec3 Position[];
-};
 
-layout(std430, binding = 1) buffer VelocityBuffer
-{
-	vec3 Velocity[];
-};
-
-#version 430
-
-layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
-
-layout(std430, binding = 0) buffer PositionBuffer
-{
-	vec3 Position[];
-};
-
-layout(std430, binding = 1) buffer VelocityBuffer
-{
-	vec3 Velocity[];
-};
-
-layout(std430, binding = 2) buffer TimeToLiveBuffer
-{
-	vec3 TimeToLive[];
-};
-
-layout(std430, binding = 2) buffer StorageBuffer
-{
-	int Storage[]; // 0 = Number1 = FirstLiving, 2
-};
-
-uniform int numParticles;
-uniform float deltaTime;
-
-void main() {
-	int idx = int(gl_GlobalInvocationID.x);
-	int IndexFirstLivingParticle =
-
-
-	if (idx < IndexFirstLivingParticle)
-	{
-		// Cria novas partículas
-		Position[idx] = ...; // Defina a posição inicial aqui
-		Velocity[idx] = ...; // Defina a velocidade inicial aqui
-		TimeToLive = 3.0f;
-	}
-	if (FirstLivingParticle >= idx < numParticles)
-	{
-		// Atualiza as partículas existentes
-		Position[idx]   += Velocity[idx] * 0.01f;
-		TimeToLive[idx] -= deltaTime;
-		//if(TimeToLive[idx] < 0.0f) matar particulo;
-	}
 }
-*/

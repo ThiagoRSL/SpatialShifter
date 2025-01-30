@@ -69,7 +69,7 @@ public:
 
 	mat4 GetRotationMatrix() { return this->rotationMatrix; }
 	mat4 GetScaleMatrix() { return this->scaleMatrix; }
-	std::vector< vec3 > GetVertexes() { return this->Vertexes; }
+	std::vector< vec3 > GetVertexes() { return this->ShipModelShader->Vertexes; }
 	std::vector<std::pair < unsigned int, unsigned int >> GetEdges() { return this->ShipModelShader->Edges; }
 
 

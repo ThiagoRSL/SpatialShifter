@@ -13,14 +13,6 @@ class RenderModel
 {
 
 protected:
-	GLuint VaoID;
-	GLuint* VboID;
-
-	std::vector< vec3 > Vertexes;
-	std::vector< vec2 > Uvs;
-	std::vector< vec3 > Normals;
-	std::vector< vec4 > Colors;
-	std::vector<unsigned int> Indexes;
 	std::vector<std::pair<unsigned int, unsigned int>> Edges;
 
 	// Crie a matriz de escala
@@ -43,7 +35,7 @@ public:
 	// mesh virtual functions
 	virtual void Init() { return; }
 	virtual void Update(double t) = 0;
-	virtual void GenerateBuffers() = 0;
+	virtual void Delete() = 0;
 	virtual void Render() = 0;
 	//virtual void resize(int, int) = 0;
 

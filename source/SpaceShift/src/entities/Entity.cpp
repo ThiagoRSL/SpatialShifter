@@ -141,6 +141,8 @@ void Entity::RotateDirection()
 }
 
 
+
+
 vec2 Entity::ThrustToGo(vec2 goalPosition, double desiredTime, float SpeedLimit)
 {
 	float mass = this->GetMass();
@@ -154,11 +156,11 @@ vec2 Entity::ThrustToGo(vec2 goalPosition, double desiredTime, float SpeedLimit)
 	vec2 targetSpeed = distance / time;
 	vec2 targetSpeedDirection = MathUtils::Normalize(targetSpeed);
 
-	if (MathUtils::Norm(targetSpeed) > SpeedLimit)
+	/*if (MathUtils::Norm(targetSpeed) > SpeedLimit) // Tratamento para não estourar o limite de velocidade recebido.
 	{
 		targetSpeed.x = (targetSpeedDirection.x * SpeedLimit);
 		targetSpeed.y = (targetSpeedDirection.y * SpeedLimit);
-	}
+	}*/
 
 	vec2 deltaSpeed = (targetSpeed - currentSpeed);
 
@@ -181,12 +183,10 @@ double Entity::TimeToReach(vec2 goalPosition)
 
 	// Verifica se a velocidade está apontando para longe do objetivo (produto escalar negativo)
 	float dotProduct = MathUtils::DotProduct(currentSpeed, distanceToGoal);
+
 	if (dotProduct <= 0.0f)
-	{
 		return std::numeric_limits<double>::infinity(); // Nunca atingirá
-	}
 
 	double t = MathUtils::Norm(distanceToGoal) / MathUtils::Norm(currentSpeed);
-
 	return t;
 }

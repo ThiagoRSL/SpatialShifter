@@ -40,7 +40,6 @@ public:
 	// mesh virtual functions
 	void Init();
 	void Update(double t);
-	void GenerateBuffers();
 	void Render();
 	//void resize(int, int);
 
@@ -54,7 +53,6 @@ public:
 
 	mat4 GetRotationMatrix() { return this->rotationMatrix; }
 	mat4 GetScaleMatrix() { return this->scaleMatrix; }
-	std::vector< vec3 > GetVertexes() { return this->Vertexes; }
 	std::vector<std::pair < unsigned int, unsigned int >> GetEdges() { return this->ProjectileShader->Edges; }
 
 

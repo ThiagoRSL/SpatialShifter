@@ -27,7 +27,6 @@ public:
 	void Init();
 	void Update(double t);
 	void Render();
-	void GenerateBuffers();
 	void GenerateParticles();
 	//void resize(int, int);
 
