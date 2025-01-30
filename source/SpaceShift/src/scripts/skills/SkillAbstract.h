@@ -36,6 +36,7 @@ class SkillAbstract
 		SkillState State;
 
 	public:
+		~SkillAbstract() { this->source = nullptr; }
 		SkillAbstract() { source = NULL; }
 		virtual void Init() = 0;
 		virtual void Update(double t) = 0;

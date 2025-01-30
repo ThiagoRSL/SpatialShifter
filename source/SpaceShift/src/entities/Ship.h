@@ -56,7 +56,8 @@ private:
 
 	void UpdateDestroyedTime(double deltaTime);
 public:
-	
+
+	~Ship();
 	Ship(ShipTypeId shipTypeId);
 
 	// mesh virtual functions

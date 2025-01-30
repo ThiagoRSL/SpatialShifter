@@ -57,6 +57,7 @@ protected:
 
 	Faction faction;
 public:
+	~Entity();
 	Entity();
 	Entity(GLFWwindow* window, int size);
 

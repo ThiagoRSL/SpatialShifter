@@ -17,6 +17,7 @@ private:
 	vec2 mousePosition;
 
 public:
+	~CursorModel() { this->CursorShader = nullptr; }
 	CursorModel() { ; }
 
 	// mesh virtual functions

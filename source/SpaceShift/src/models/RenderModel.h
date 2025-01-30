@@ -13,7 +13,7 @@ class RenderModel
 {
 
 protected:
-	std::vector<std::pair<unsigned int, unsigned int>> Edges;
+	//std::vector<std::pair<unsigned int, unsigned int>> Edges;
 
 	// Crie a matriz de escala
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
@@ -35,7 +35,6 @@ public:
 	// mesh virtual functions
 	virtual void Init() { return; }
 	virtual void Update(double t) = 0;
-	virtual void Delete() = 0;
 	virtual void Render() = 0;
 	//virtual void resize(int, int) = 0;
 

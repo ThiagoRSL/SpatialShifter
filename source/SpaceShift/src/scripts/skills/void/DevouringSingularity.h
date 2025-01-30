@@ -38,6 +38,8 @@ class DevouringSingularity : public SkillAbstract
 		DevouringSingularityModel Model;
 
 	public:
+
+		~DevouringSingularity() { ; }
 		DevouringSingularity(Entity* sourceEntity, vec3 targetpoint, float mass, float dps, double duration);
 		void Init();
 		void Update(double t);

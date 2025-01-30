@@ -31,6 +31,7 @@ protected:
 	vec4 DebugColliderColor;
 
 public:
+	~AbstractCollider() { this->Controller = nullptr; }
 	AbstractCollider() { ; }
 
 	virtual bool isColliding(const AbstractCollider& other) const = 0;

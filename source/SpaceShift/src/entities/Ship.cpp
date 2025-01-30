@@ -19,6 +19,13 @@ using namespace std;
 
 class RenderManager;
 
+Ship::~Ship()
+{
+	//std::vector<SkillAbstract*> ActiveSkills;
+	//std::vector<SkillAbstract*> SkillsToEnd;
+	delete this->Autonomy;
+}
+
 Ship::Ship(ShipTypeId shipTypeId)
 {
 	this->speedMax = 100.0f;

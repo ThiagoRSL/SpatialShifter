@@ -3,6 +3,12 @@
 #include "../Ship.h"
 using namespace std;
 
+Projectile::~Projectile()
+{
+	delete this->Collider; // TODO: delete do collider.
+	this->source = nullptr; // Não é responsável pelo gerenciamento da memória da fonte.
+}
+
 Projectile::Projectile(Entity* source, float scale, float mass, float damage, DamageType damageType, float hitPoints,
 	vec3 position, vec3 linearSpeed, Force f, ProjectileTypeID projectileTypeId, vec3 rotation, Faction fact)
 {

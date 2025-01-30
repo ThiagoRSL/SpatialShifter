@@ -3,8 +3,14 @@
 #include "PointCollider.h"
 using namespace std;
 
+PolyCollider::~PolyCollider()
+{
+    ColliderDebugShader = nullptr;
+}
+
 PolyCollider::PolyCollider()
 {
+    ColliderDebugShader = nullptr;
     collidingRadius = GlobalVars::STANDARD_COLLIDING_RADIUS;
     DebugColliderColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	Vertexes = std::vector<glm::vec3>();

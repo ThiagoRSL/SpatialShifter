@@ -21,6 +21,7 @@ using namespace std;
 ShipModel::ShipModel(Ship* ShipController)
 {
 	this->Controller = ShipController;
+	this->ParticlesVboID = nullptr;
 
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
@@ -277,7 +278,50 @@ void ShipModel::GenerateParticles()
 	glBindVertexArray(0);
 }
 
-void ShipModel::Delete()
+ShipModel::~ShipModel()
 {
+	this->window = nullptr;
+	this->Controller = nullptr;
+	this->AxisShader = nullptr;
+	this->ShipModelShader = nullptr;
+	this->ParticleUpdateShader = nullptr;
+	this->ParticleShader = nullptr;
 
+	// Liberar buffers de partículas (VBOs)
+	if (ParticlesVboID != nullptr) {
+		glDeleteBuffers(5, ParticlesVboID);
+		delete[] ParticlesVboID; // Desaloca o array de VBOs
+	}
+
+	// Liberar VAO de partículas
+	if (ParticlesVaoID != 0) glDeleteVertexArrays(1, &ParticlesVaoID);
+
+	// Liberar memória das partículas
+	if (ParticlePosition != nullptr) delete[] ParticlePosition;
+	if (ParticleVelocity != nullptr) delete[] ParticleVelocity;
+	if (ParticleColor != nullptr) delete[] ParticleColor;
+	if (ParticleTTL != nullptr) delete[] ParticleTTL;
+	if (ParticleIndex != nullptr) delete[] ParticleIndex;
+
+	// AS naves compartilham o shader, isso precisa ser resolvido no shader manager.
+
+	/*Shader* AxisShader;
+	Shader* ShipModelShader;
+	Shader* ParticleUpdateShader;
+	Shader* ParticleShader;
+	GLuint* ParticlesVboID;*/
+
+	/*if (ParticleShader != nullptr) {
+		delete ParticleShader;
+	}
+
+	if (ParticleUpdateShader != nullptr) {
+		delete ParticleUpdateShader;
+	}
+
+	if (ShipModelShader != nullptr) {
+		delete ShipModelShader;
+	}*/
+
+	// Limpeza adicional, se necessário para outras partes do sistema
 }

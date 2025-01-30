@@ -42,6 +42,8 @@ protected:
 	DamageType damageType;
 
 public:
+
+	~Projectile();
 	Projectile(Entity* source, float scale, float mass, float damage, DamageType damageType, float hitPoints,
 		vec3 position, vec3 linearSpeed, Force f, ProjectileTypeID projectileTypeId, vec3 rotation, Faction fact);
 	//Projectile(vec3 position, vec3 diretion, vec3 linearSpeed, Force boost);

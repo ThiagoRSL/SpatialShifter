@@ -19,6 +19,14 @@
 using namespace std;
 
 
+ProjectileModel::~ProjectileModel()
+{
+	this->window = nullptr;
+	this->Controller = nullptr;
+	this->ProjectileShader; // TODO: Resolver
+	this->AxisShader; // TODO: Resolver
+}
+
 ProjectileModel::ProjectileModel(Projectile* ProjectileController)
 {
 	this->Controller = ProjectileController;

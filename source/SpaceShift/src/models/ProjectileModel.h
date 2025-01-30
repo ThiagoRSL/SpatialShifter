@@ -34,6 +34,7 @@ private:
 
 
 public:
+	~ProjectileModel();
 	ProjectileModel() { ; }
 	ProjectileModel(Projectile* Projectile);
 

@@ -2,6 +2,11 @@
 #include "Entity.h"
 using namespace std;
 
+Entity::~Entity()
+{
+	//std::vector<Force*> forces = std::vector<Force*>(); //Verificar como resolver isso
+}
+
 Entity::Entity()
 {
 	forces = std::vector<Force*>();

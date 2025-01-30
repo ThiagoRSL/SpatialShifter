@@ -48,6 +48,7 @@ private:
 
 
 public:
+	~ShipModel();
 	ShipModel() { ; }
 	
 	ShipModel(Ship* ship);

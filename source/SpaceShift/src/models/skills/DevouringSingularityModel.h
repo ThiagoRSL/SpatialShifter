@@ -20,6 +20,7 @@ private:
 	Shader* SkillShader;
 
 public:
+	~DevouringSingularityModel() { this->Skill = nullptr; this->SkillShader = nullptr;	}
 	DevouringSingularityModel() { ; }
 	DevouringSingularityModel(DevouringSingularity* Skill);
 

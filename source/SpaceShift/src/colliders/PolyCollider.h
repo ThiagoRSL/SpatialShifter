@@ -31,7 +31,8 @@ private:
 	Shader* ColliderDebugShader;
 
 public:
-	
+
+	~PolyCollider();
 	PolyCollider();
 	void GenerateBuffers();
 	void Update(double deltaTime);

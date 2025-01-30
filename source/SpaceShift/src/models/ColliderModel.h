@@ -20,6 +20,8 @@ protected:
 	Shader* ColliderShader;
 
 public:
+
+	~ColliderModel() { this->Controller = nullptr; this->ColliderShader = nullptr; }
 	ColliderModel() { ; }
 	ColliderModel(Entity* Controller);
 
