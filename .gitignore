@@ -1,4 +1,4 @@
-
 .vs/.
 bin/.
-./source/SpaceShift/Debug/.
+source/SpaceShift/Debug/.
+*.ipch
