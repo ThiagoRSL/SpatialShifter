@@ -44,6 +44,7 @@ public:
     void GenerateColliderBuffers();
     void RenderColliderDebug();
 
+    void RenderParticles(GLuint id, int size);
 
     void Compile(const char* computePath);
     void Compile(const char* vertexPath, const char* fragmentPath);

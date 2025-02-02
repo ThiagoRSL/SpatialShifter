@@ -20,13 +20,13 @@ using namespace std;
 
 ShipModel::ShipModel(Ship* ShipController)
 {
-	this->Controller = ShipController;
+	this->Controller = ShipController; 
 	this->ParticlesVboID = nullptr;
 
 	position = ShipController->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = ShipController->GetRotation();
 	scale = vec3(1.0f);
-	MaxParticlesNumber = 250;
+	MaxParticlesNumber = 25;
 	MaxTimeToLive = 0.3f;
 	NextParticleIndex = 0;
 	ParticleNumber = 0;
@@ -46,57 +46,22 @@ void ShipModel::SetShipController(Ship* ship)
 
 void ShipModel::Init()
 {
-	ShipTypeId shipType = this->Controller->GetShipType();
-	int shipTypeIdInt = static_cast<int>(shipType);
 	/// matrices setup
-	modelMatrix = mat4(); // identity
+	modelMatrix = mat4(); 
 
-	ShipModelShader = ShaderManager::GetInstance()->GetShader(shipTypeIdInt, ShaderType::SHADER_TYPE_SHIP);
-	if (ShipModelShader == nullptr)
-	{
-		ShipModelShader = new Shader();
-		printf("\n COMPILANDO SHADERS (1).");
-		ShipModelShader->Compile("shader/ship/ship.vert", "shader/ship/ship.geom", "shader/ship/ship.frag");
-		ShaderManager::GetInstance()->AddShader(shipTypeIdInt, ShaderType::SHADER_TYPE_SHIP, ShipModelShader);
-
-		bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetShipModelPath(shipType), 
-			ShipModelShader->Vertexes, ShipModelShader->Uvs, ShipModelShader->Normals, ShipModelShader->Indexes);
-
-		if (res)
-			printf("Arquivo de modelo 3d carregado com sucesso!");
-		else
-			printf("Arquivo de modelo 3d não foi carregado com sucesso."); 
-
-		ShipModelShader->GenerateBuffers();
-	}
-
+	ShipModelShader = ShaderManager::GetInstance()->GetShipShader(this->Controller->GetShipType());
 	ParticleShader = ShaderManager::GetInstance()->GetParticleShader();
-	if (ParticleShader == nullptr)
-	{
-		ParticleShader = new Shader();
-		printf("\n COMPILANDO SHADERS (Particulas).");
-		ParticleShader->Compile("shader/particle/particles.vert", "shader/particle/particles.geom", "shader/particle/particles.frag");
-		ShaderManager::GetInstance()->SetParticleShader(ParticleShader);
-	}
-
-	ParticleUpdateShader = new Shader();
-	printf("\n COMPILANDO SHADERS (1).");
-	ParticleUpdateShader->Compile("shader/particle/particles.comp");
-
+	ParticleUpdateShader = ShaderManager::GetInstance()->GetParticleUpdateShader();
 	ParticleTextureIndex = TextureManager::Inst()->GetTexture(GlobalPaths::PARTICLE_ENGINE_PATH);
 
-	glGenVertexArrays(1, &ParticlesVaoID);
-	glBindVertexArray(ParticlesVaoID);
-	ParticlesVboID = new GLuint[5];
-	glGenBuffers(5, ParticlesVboID);
-	glBindVertexArray(0);
-
+	GenerateBuffers();
 }
 
 void ShipModel::Render()
 {
 	// TODO: Find proper values for mantain particle size based on camera size, 
 	// Should do math properly for that.
+	ParticleShader->Use();
 	ParticleShader->setUniform(string("ParticleSize"), 0.01f - (0.007f * CameraManager::GetInstance()->GetSizeRelative()));
 	ParticleShader->setUniform(string("ColorDegradation"), vec3(1.0f, 0.05f, 0.05f));
 	ParticleShader->setUniform(string("MaxTTL"), MaxTimeToLive);
@@ -105,7 +70,7 @@ void ShipModel::Render()
 	ParticleShader->setUniform(string("MVP"), CameraManager::GetInstance()->MVP()); //ModelViewProjection
 	ParticleShader->setUniform(string("TimeNow"), UpdateManager::GetInstance()->GetTimeCounter());
 
-
+	ShipModelShader->Use();
 	ShipModelShader->setUniform(string("MVP"), CameraManager::GetInstance()->RefMVP()); //ModelViewProjection
 	ShipModelShader->setUniform(string("Position"), position);
 	ShipModelShader->setUniform(string("RotationMatrix"), rotationMatrix);
@@ -117,7 +82,7 @@ void ShipModel::Render()
 
 
 	//Atualiza as posições das Particles
-	ParticleUpdateShader->Use();
+	/*ParticleUpdateShader->Use();
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ParticlesVboID[0]);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, ParticlesVboID[1]);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, ParticlesVboID[2]);
@@ -125,18 +90,15 @@ void ShipModel::Render()
 	glDispatchCompute(MaxParticlesNumber, 1, 1);
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 	glBindVertexArray(0);
-	glUseProgram(0);
+	glUseProgram(0);*/
 
-	this->GenerateParticles();	// Crie a matriz de escala
+	this->GenerateParticles();	
 
 	//Renderiza as Particulas
 	TextureManager::Inst()->BindTexture(ParticleTextureIndex);
 
 	ParticleShader->Use();
-	glBindVertexArray(ParticlesVaoID);
-	glDrawArrays(GL_POINTS, 0, MaxParticlesNumber);
-	glBindVertexArray(0);
-	glUseProgram(0);
+	ParticleShader->RenderParticles(ParticlesVaoID, MaxParticlesNumber);//*/
 
 	//Renderiza a Nave
 	glActiveTexture(GL_TEXTURE0);
@@ -145,12 +107,13 @@ void ShipModel::Render()
 	ShipModelShader->Render();
 }
 
+
 void ShipModel::Update(double deltaTime)
 {
 	position = Controller->GetPosition() - CameraManager::GetInstance()->WorldPivot();
 	rotation = Controller->GetRotation();
 
-	ParticleUpdateShader->setUniform(string("DeltaTime"), (float) deltaTime);
+	//ParticleUpdateShader->setUniform(string("DeltaTime"), (float) deltaTime);
 	scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 
 
@@ -174,6 +137,31 @@ void ShipModel::Update(double deltaTime)
 	rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
 
 	CameraManager* cam = CameraManager::GetInstance();
+}
+
+void ShipModel::GenerateBuffers()
+{
+	glGenVertexArrays(1, &ParticlesVaoID);
+	glBindVertexArray(ParticlesVaoID);
+	ParticlesVboID = new GLuint[5];
+	glGenBuffers(5, ParticlesVboID);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[0]);
+	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), nullptr, GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[1]);
+	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), nullptr, GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[2]);
+	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(vec4), nullptr, GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, ParticlesVboID[3]);
+	glBufferData(GL_ARRAY_BUFFER, MaxParticlesNumber * sizeof(float), nullptr, GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticlesVboID[4]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, MaxParticlesNumber * sizeof(int), nullptr, GL_DYNAMIC_DRAW);
+
+	glBindVertexArray(0);
 }
 
 void ShipModel::GenerateParticles()

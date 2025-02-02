@@ -22,7 +22,7 @@ bool ObjectLoader::LoadObject(const char* path, std::vector < glm::vec3 >& out_v
     fopen_s(&file, path, "rb");
     if (file == NULL)
     {
-        printf("Não foi possível abrir o arquivo. \n Caminho: '%s'.\n", path);
+        printf("Não foi possível abrir o arquivo. \n Caminho: '%s'. (Object)\n", path);
         return false;
     }
 
@@ -107,6 +107,7 @@ bool ObjectLoader::LoadObject(const char* path, std::vector < glm::vec3 >& out_v
         glm::vec3 normal = normalsTemp[normalIndex - 1];
         out_normals.push_back(normal);
     }
+    fclose(file);
     return true;
 }
 
@@ -120,7 +121,7 @@ bool ObjectLoader::LoadCollider(const char* path, std::vector < glm::vec3 >& col
     fopen_s(&file, path, "rb");
     if (file == NULL)
     {
-        printf("Não foi possível abrir o arquivo. \n Caminho: '%c'.\n", path);
+        printf("Não foi possível abrir o arquivo. \n Caminho: '%c'. (Collider)\n", path);
         return false;
     }
     while (true)
@@ -154,6 +155,7 @@ bool ObjectLoader::LoadCollider(const char* path, std::vector < glm::vec3 >& col
             //printf("OMG!!! found a DISGUTING: '%s'. \n", lineHeader);
         }
     }
-    printf("\n\n\nVertices dos colisores: %i", colliderVertexes.size());
+    fclose(file);
+    //printf("\n\n\nVertices dos colisores: %i", colliderVertexes.size());
     return true;
 }

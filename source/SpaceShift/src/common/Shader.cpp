@@ -466,7 +466,14 @@ void Shader::RenderColliderDebug()
     glUseProgram(0);
 }
 
-
+void Shader::RenderParticles(GLuint id, int size)
+{
+    this->Use();
+    glBindVertexArray(id);
+    glDrawArrays(GL_POINTS, 0, size);
+    glBindVertexArray(0);
+    glUseProgram(0);
+}
 
 void Shader::GenerateSkillBuffers()
 {

@@ -23,7 +23,7 @@ Ship::~Ship()
 {
 	//std::vector<SkillAbstract*> ActiveSkills;
 	//std::vector<SkillAbstract*> SkillsToEnd;
-	delete this->Autonomy;
+	//delete this->Autonomy; // TODO: Achar lugar melhor pra isso (dá erro)
 }
 
 Ship::Ship(ShipTypeId shipTypeId)
@@ -274,6 +274,11 @@ void Ship::Destroy()
 	CollisionManager::GetInstance()->RemoveCollider(&this->Collider);
 	StageManager::GetInstance()->ShipDestroyed(this);
 	Entity::Destroy();
+
+	// Desaloca a memória da autonomia, deve ser colocado dentro do destrutor mas ele só deve ser chamado após a animação de destruição.
+	// Entretanto, por hora, isso fica aqui
+	delete this->Autonomy;
+	this->Autonomy = nullptr;
 }
 
 
@@ -300,7 +305,7 @@ void Ship::SetAutonomous(bool value)
 	if (this->Autonomy != NULL)
 	{
 		this->isAutonomous = value;
-		if (!value)
+		if (!value && this->Autonomy != nullptr)
 			this->Autonomy->ClearTasks();
 	}
 	else

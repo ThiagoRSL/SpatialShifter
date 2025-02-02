@@ -56,9 +56,10 @@ private:
 	std::map<ProjectileTypeID, Shader*> ProjectileShaderDict;
 	std::map<ShaderType, Shader*> ShaderDict;
 
-	Shader* particleShader;
-	Shader* interfaceElementShader;
-	Shader* cursorShader;
+	Shader* particleShader = nullptr;
+	Shader* particleUpdateShader = nullptr;
+	Shader* interfaceElementShader = nullptr;
+	Shader* cursorShader = nullptr;
 
 	//Retorna o dicionário correto que armazena o tipo de shader em questão.
 	std::map<int, Shader*>* GetSelector(ShaderType dict_type_id);
@@ -91,7 +92,10 @@ public:
 	Shader* GetShader(ShaderType typeShader);
 	Shader* GetShader(ProjectileTypeID projectileId);
 	Shader* GetShader(int id, ShaderType typeShader);
-	Shader* GetParticleShader() { return this->particleShader; }
+	Shader* GetShipShader(ShipTypeId id);
+	Shader* GetParticleShader();
+	Shader* GetParticleUpdateShader();
+
 	Shader* GetInterfaceElementShader() { return this->interfaceElementShader; }
 	GLuint GetInterfaceElementShaderID() { return this->interfaceElementShader->ID; }
 	Shader* GetCursorShader() { return this->cursorShader; }

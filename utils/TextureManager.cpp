@@ -127,14 +127,25 @@ void TextureManager::printImageColorType(FREE_IMAGE_COLOR_TYPE type) {
 
 unsigned int TextureManager::GetTexture(std::string TexturePath)
 {
-	unsigned int ParticleTextureIndex = TextureManager::Inst()->ReserveIndex();
-	if (!TextureManager::Inst()->LoadTexture(TexturePath.c_str(), ParticleTextureIndex))
-	{
-		cout << "Failed to load texture." << endl;
-		return -1; //TODO: Unsigned can't be -1
-	}
+	auto it = TextureDict.find(TexturePath);
 
-	return ParticleTextureIndex;
+	if (it != TextureDict.end()) 
+	{
+		return it->second;
+	}
+	else 
+	{
+		unsigned int TextureIndex = TextureManager::Inst()->ReserveIndex();
+		TextureDict.insert(std::make_pair(TexturePath, TextureIndex));
+
+		if (!TextureManager::Inst()->LoadTexture(TexturePath.c_str(), TextureIndex))
+		{
+			cout << "Failed to load texture." << endl;
+			return -1; //TODO: Unsigned can't be -1
+		}
+
+		return TextureIndex;
+	}
 }
 
 bool TextureManager::LoadTexture(const char* filename, const unsigned int texID, GLenum image_format, GLint internal_format, GLint level, GLint border)
@@ -312,5 +323,6 @@ void TextureManager::UnloadAllTextures()
 		UnloadTexture(i->first);
 
 	//clear the texture map
+	TextureDict.clear();
 	m_texID.clear();
 }

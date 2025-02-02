@@ -19,6 +19,11 @@
 class TextureManager
 {
 public:
+
+	static TextureManager* m_inst;
+	std::map<unsigned int, GLuint> m_texID;
+	std::map<std::string, unsigned int> TextureDict;
+
 	int nextReservedIndex;
 	static TextureManager* Inst();
 	virtual ~TextureManager();
@@ -56,9 +61,6 @@ public:
 
 protected:
 	TextureManager();
-
-	static TextureManager* m_inst;
-	std::map<unsigned int, GLuint> m_texID;
 };
 
 #endif

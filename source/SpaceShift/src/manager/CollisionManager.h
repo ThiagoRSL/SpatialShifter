@@ -37,7 +37,7 @@ public:
 	void AddCollider(AbstractCollider* collider)	{ ColliderList.push_back(collider); }
 	
 	void RemoveProjectileCollider(AbstractCollider* collider) { ProjectileCollidersList.erase(std::remove(ProjectileCollidersList.begin(), ProjectileCollidersList.end(), collider), ProjectileCollidersList.end()); }
-	void RemoveCollider(PolyCollider* collider) { printf("\n Collider elements: %i", ColliderList.size()); ColliderList.erase(std::remove(ColliderList.begin(), ColliderList.end(), collider), ColliderList.end()); }
+	void RemoveCollider(PolyCollider* collider) { /*printf("\n Collider elements: %i", ColliderList.size());*/ ColliderList.erase(std::remove(ColliderList.begin(), ColliderList.end(), collider), ColliderList.end()); }
 	
 	void VerifyCollisions();
 

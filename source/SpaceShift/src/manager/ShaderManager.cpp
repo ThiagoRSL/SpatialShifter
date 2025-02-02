@@ -67,18 +67,35 @@ Shader* ShaderManager::GetShader(ShaderType typeShader)
     }
 }
 
-Shader* ShaderManager::GetShader(int id, ShaderType typeShader)
+Shader* ShaderManager::GetShipShader(ShipTypeId id)
 {
-    std::map<int, Shader*>* Dict = GetSelector(typeShader);
-    
-    auto it = Dict->find(id);
-    if (it != Dict->end()) {
-        return it->second;
-    }
+    std::map<int, Shader*>* Dict = GetSelector(ShaderType::SHADER_TYPE_SHIP);
+    Shader* ShipModelShader;
+
+    auto it = Dict->find(static_cast<int>(id));
+    if (it != Dict->end())
+        ShipModelShader = it->second;
     else {
         std::cout << "\nShader requisitado não encontrado no dicionário (Com ID).\n" << std::endl;
-        return nullptr;
+        ShipModelShader = new Shader();
+
+        printf("\n COMPILANDO SHADERS (1).");
+        ShipModelShader->Compile("shader/ship/ship.vert", "shader/ship/ship.geom", "shader/ship/ship.frag");
+
+        AddShader(static_cast<int>(id), ShaderType::SHADER_TYPE_SHIP, ShipModelShader);
+
+        bool res = ObjectLoader::LoadObject(ShipBuilder::GetInstance()->GetShipModelPath(id), ShipModelShader->Vertexes,
+            ShipModelShader->Uvs, ShipModelShader->Normals, ShipModelShader->Indexes);
+
+        if (res)
+            printf("Arquivo de modelo 3d carregado com sucesso!");
+        else
+            printf("Arquivo de modelo 3d não foi carregado com sucesso.");
+
+        ShipModelShader->GenerateBuffers();
     }
+
+    return ShipModelShader;
 }
 
 std::map<int, Shader*>* ShaderManager::GetSelector(ShaderType dict_type_id)
@@ -100,3 +117,27 @@ std::map<int, Shader*>* ShaderManager::GetSelector(ShaderType dict_type_id)
     }
 }
 
+
+Shader* ShaderManager::GetParticleShader()
+{
+    if (this->particleShader == nullptr)
+    {
+        this->particleShader = new Shader();
+        printf("\n COMPILANDO SHADERS (Particulas).");
+        this->particleShader->Compile("shader/particle/particles.vert", "shader/particle/particles.geom", "shader/particle/particles.frag");
+    }
+
+    return this->particleShader; 
+}
+
+Shader* ShaderManager::GetParticleUpdateShader()
+{
+    if (this->particleUpdateShader == nullptr)
+    {
+        this->particleUpdateShader = new Shader();
+        printf("\n COMPILANDO SHADERS (1).");
+        this->particleUpdateShader->Compile("shader/particle/particles.comp");
+    }
+
+    return this->particleUpdateShader;
+}
