@@ -1,9 +1,0 @@
-{
-    "Version": "1.1",
-    "Data": {
-        "Source": "e:\\visual studio\\projects\\trabalhoscga\\demos\\glsl40_tessellation_displacement_mapping\\common.ixx",
-        "ProvidedModule": "",
-        "ImportedModules": [],
-        "ImportedHeaderUnits": []
-    }
-}
