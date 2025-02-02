@@ -1,4 +1,4 @@
-.vs/.
-bin/.
-source/SpaceShift/Debug/.
+.vs/*
+bin/*
+source/SpaceShift/Debug/*
 *.ipch
